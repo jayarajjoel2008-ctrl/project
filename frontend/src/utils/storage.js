@@ -88,21 +88,34 @@ export function getLastCompletedDay() {
 }
 
 /**
- * Calculates max unlocked day based on start date and completed days
+ * Calculates max unlocked day based on start date and completed days.
+ * Day N unlocks at 12:00 AM Midnight after Day N-1 is completed.
  */
 export function getMaxUnlockedDay() {
+  const current = getUserProgress();
+  const start = new Date(current.profile?.startDate || Date.now());
+  const now = new Date();
+
+  // Midnight-based days elapsed since challenge start date
+  const diffTime = Math.max(0, now.getTime() - start.getTime());
+  const daysElapsedByTime = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
   const lastCompleted = getLastCompletedDay();
 
-  // Next level to unlock is last completed day + 1 (minimum Day 1)
-  const nextLevel = Math.max(1, lastCompleted + 1);
+  // If user completed up to lastCompleted (e.g. Day 11),
+  // Day 12 unlocks at 12:00 AM Midnight (daysElapsedByTime > lastCompleted).
+  if (daysElapsedByTime > lastCompleted) {
+    return Math.min(60, lastCompleted + 1);
+  }
 
-  return Math.min(60, nextLevel);
+  // Otherwise, Day 12 remains locked until 12:00 AM Midnight tonight!
+  return Math.max(1, lastCompleted);
 }
 
 /**
  * Checks if a specific day level is unlocked.
  * Level 1 is always unlocked.
- * Level N (N > 1) is unlocked ONLY if Level N-1 is completed AND day N <= maxUnlockedDay.
+ * Level N (N > 1) unlocks at 12:00 AM Midnight only after Level N-1 is completed.
  */
 export function isDayUnlocked(dayNum) {
   const num = Number(dayNum);
