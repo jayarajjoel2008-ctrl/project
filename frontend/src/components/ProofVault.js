@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaCheck, FaLock, FaExternalLinkAlt, FaClock } from 'react-icons/fa';
-import { isDayUnlocked, getMaxUnlockedDay } from '../utils/storage';
+import { FaGithub, FaLinkedin, FaCheck, FaLock, FaExternalLinkAlt, FaClock, FaHourglassHalf } from 'react-icons/fa';
+import { isDayUnlocked, getLastCompletedDay, getTimeUntilMidnight } from '../utils/storage';
 import './ProofVault.css';
 
 const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
   const [activeFilter, setActiveFilter] = useState('all'); // 'all', 'completed', 'locked'
   const [selectedChallenge, setSelectedChallenge] = useState(null);
+  const [midnightTimer, setMidnightTimer] = useState(getTimeUntilMidnight());
 
-  const maxUnlockedDay = getMaxUnlockedDay();
+  const lastCompletedDay = getLastCompletedDay(); // e.g. 12
+  const nextUnlockingDay = lastCompletedDay + 1; // e.g. 13
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setMidnightTimer(getTimeUntilMidnight());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const filteredChallenges = challenges.slice(0, limit).filter((c) => {
     const isCompleted = c.submitted;
@@ -27,7 +36,7 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
         <div className="vault-header-block">
           <div className="vault-header-title">
             <h3>Proof of Work Vault</h3>
-            <p>Verifiable public proof for all 60 coding levels</p>
+            <p>Level Progression: Complete previous level to unlock the next</p>
           </div>
 
           <div className="vault-filter-tabs">
@@ -35,7 +44,7 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
               className={`filter-tab ${activeFilter === 'all' ? 'active' : ''}`}
               onClick={() => setActiveFilter('all')}
             >
-              All ({limit})
+              All Levels ({limit})
             </button>
             <button 
               className={`filter-tab ${activeFilter === 'completed' ? 'active' : ''}`}
@@ -47,15 +56,32 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
               className={`filter-tab ${activeFilter === 'locked' ? 'active' : ''}`}
               onClick={() => setActiveFilter('locked')}
             >
-              Locked ({Math.max(0, 60 - maxUnlockedDay)})
+              Locked ({Math.max(0, 60 - lastCompletedDay - 1)})
             </button>
           </div>
         </div>
       )}
 
+      {/* LIVE MIDNIGHT COUNTDOWN TIMER BANNER BELOW LAST COMPLETED DAY */}
+      <div className="vault-live-timer-banner">
+        <div className="banner-left">
+          <span className="banner-timer-icon"><FaHourglassHalf className="hourglass-spin" /></span>
+          <div className="banner-text">
+            <span className="banner-label">LAST COMPLETED: LEVEL DAY {lastCompletedDay}</span>
+            <span className="banner-next-title">Level Day {nextUnlockingDay} Unlocks at 12:00 AM Midnight</span>
+          </div>
+        </div>
+
+        <div className="banner-countdown-box">
+          <FaClock />
+          <span className="countdown-digits">{midnightTimer.formatted}</span>
+        </div>
+      </div>
+
       <div className="vault-grid">
         {filteredChallenges.map((c) => {
-          const isDone = c.submitted;
+          const isCompleted = c.submitted;
+          const isNextTarget = c.day === nextUnlockingDay;
           const unlocked = isDayUnlocked(c.day);
           const hasGithub = Boolean(c.githubRepoUrl || c.githubCommitUrl);
           const hasLinkedin = Boolean(c.linkedinUrl);
@@ -63,19 +89,27 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
           return (
             <div 
               key={c.day}
-              className={`vault-day-cell ${isDone ? 'completed' : unlocked ? 'unlocked' : 'locked'}`}
+              className={`vault-day-cell ${isCompleted ? 'completed' : isNextTarget ? 'next-target' : unlocked ? 'unlocked' : 'locked'}`}
               onClick={() => setSelectedChallenge(c)}
             >
               <div className="cell-top">
                 <span className="cell-day-num">DAY {String(c.day).padStart(2, '0')}</span>
-                {isDone ? (
+                {isCompleted ? (
                   <span className="cell-check-badge"><FaCheck /></span>
+                ) : isNextTarget ? (
+                  <span className="cell-target-badge">NEXT LEVEL</span>
                 ) : !unlocked ? (
                   <span className="cell-lock-icon"><FaLock /></span>
                 ) : null}
               </div>
 
               <div className="cell-title-sub">{c.title.replace(`Day ${c.day}: `, '')}</div>
+
+              {isNextTarget && !isCompleted && (
+                <div className="cell-next-timer-mini">
+                  ⏱️ Unlocks 12:00 AM ({midnightTimer.hours}h {midnightTimer.minutes}m)
+                </div>
+              )}
 
               <div className="cell-proof-icons">
                 <span className={`proof-dot ${hasGithub ? 'active' : ''}`} title="GitHub Proof">
@@ -97,16 +131,26 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
             <div className="modal-header-row">
               <span className="modal-day-tag">LEVEL DAY {selectedChallenge.day}</span>
               {selectedChallenge.submitted ? (
-                <span className="badge-status done">✓ Verified Proof</span>
+                <span className="badge-status done">✓ Verified Level Completed</span>
               ) : isDayUnlocked(selectedChallenge.day) ? (
-                <span className="badge-status open">🔓 Unlocked Level</span>
+                <span className="badge-status open">🔓 Unlocked — Complete Today</span>
+              ) : selectedChallenge.day === nextUnlockingDay ? (
+                <span className="badge-status timer">⏱️ Unlocks 12:00 AM Midnight</span>
               ) : (
-                <span className="badge-status locked">🔒 Unlocks at 12:00 AM Midnight</span>
+                <span className="badge-status locked">🔒 Locked — Complete Level {selectedChallenge.day - 1} First</span>
               )}
             </div>
 
             <h3 className="modal-title">{selectedChallenge.title}</h3>
             <p className="modal-objective">{selectedChallenge.objective}</p>
+
+            {/* COUNTDOWN TIMER INSIDE MODAL FOR NEXT UNLOCKING LEVEL */}
+            {selectedChallenge.day === nextUnlockingDay && !selectedChallenge.submitted && (
+              <div className="modal-countdown-timer-box">
+                <FaClock />
+                <span>Next Day Unlocks in: <strong>{midnightTimer.formatted}</strong></span>
+              </div>
+            )}
 
             <div className="modal-proof-links-box">
               <h4>Verified Proof URLs</h4>
@@ -157,8 +201,12 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
                 </Link>
               ) : (
                 <div className="locked-notice-banner">
-                  <FaClock />
-                  <span>Scheduled to open at 12:00 AM Midnight</span>
+                  <FaLock />
+                  <span>
+                    {selectedChallenge.day === nextUnlockingDay
+                      ? `Day ${selectedChallenge.day} opens at 12:00 AM Midnight`
+                      : `Complete Level Day ${selectedChallenge.day - 1} to unlock this challenge`}
+                  </span>
                 </div>
               )}
 

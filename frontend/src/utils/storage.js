@@ -8,9 +8,7 @@ export function getUserProgress() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const data = JSON.parse(raw);
-      // Ensure startDate exists
       if (!data.profile.startDate) {
-        // Set default start date to 11 days ago so Day 12 is active today
         const defaultStart = new Date();
         defaultStart.setDate(defaultStart.getDate() - 11);
         data.profile.startDate = defaultStart.toISOString();
@@ -22,7 +20,6 @@ export function getUserProgress() {
     console.error('Error loading progress from localStorage:', err);
   }
 
-  // Set initial start date to 11 days ago
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 11);
 
@@ -48,25 +45,47 @@ export function saveUserProgress(data) {
 }
 
 /**
+ * Returns the highest completed day number (e.g., 12)
+ */
+export function getLastCompletedDay() {
+  const current = getUserProgress();
+  const completedDays = current.challenges
+    .filter(c => c.submitted)
+    .map(c => c.day);
+
+  if (completedDays.length === 0) return 0;
+  return Math.max(...completedDays);
+}
+
+/**
  * Calculates max unlocked day based on start date and completed days
  */
 export function getMaxUnlockedDay() {
+  const lastCompleted = getLastCompletedDay();
+
+  // Next level to unlock is last completed day + 1 (minimum Day 1)
+  const nextLevel = Math.max(1, lastCompleted + 1);
+
+  return Math.min(60, nextLevel);
+}
+
+/**
+ * Checks if a specific day level is unlocked.
+ * Level 1 is always unlocked.
+ * Level N (N > 1) is unlocked ONLY if Level N-1 is completed AND day N <= maxUnlockedDay.
+ */
+export function isDayUnlocked(dayNum) {
+  const num = Number(dayNum);
+  if (num === 1) return true;
+
   const current = getUserProgress();
-  const start = new Date(current.profile.startDate || Date.now());
-  const now = new Date();
+  const prevChallenge = current.challenges.find(c => c.day === num - 1);
+  
+  // Requires previous level to be submitted
+  const prevSubmitted = prevChallenge ? prevChallenge.submitted : false;
+  const maxUnlocked = getMaxUnlockedDay();
 
-  // Days elapsed since start date (Midnight based)
-  const diffTime = Math.max(0, now.getTime() - start.getTime());
-  const daysElapsed = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const maxByTime = daysElapsed + 1;
-
-  // Max by completion (allow opening currentDay or completedDaysCount + 1)
-  const maxByCompletion = Math.max(
-    current.profile.currentDay || 12,
-    (current.profile.completedDaysCount || 0) + 1
-  );
-
-  return Math.min(60, Math.max(maxByTime, maxByCompletion));
+  return prevSubmitted && num <= maxUnlocked;
 }
 
 /**
@@ -86,11 +105,6 @@ export function getTimeUntilMidnight() {
   const formatted = `${pad(hours)}h : ${pad(minutes)}m : ${pad(seconds)}s`;
 
   return { hours, minutes, seconds, formatted, diffMs };
-}
-
-export function isDayUnlocked(dayNum) {
-  const maxUnlocked = getMaxUnlockedDay();
-  return Number(dayNum) <= maxUnlocked;
 }
 
 export function submitDayProof(dayNum, githubRepo, githubCommit, linkedinUrl) {
