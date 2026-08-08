@@ -50,7 +50,7 @@ export function evaluateAchievements(data) {
   const githubProofsCount = data.profile.githubProofsCount || 0;
 
   data.achievements = data.achievements.map(ach => {
-    let shouldUnlock = ach.unlocked;
+    let shouldUnlock = false;
 
     if (ach.id === 'streak-7') shouldUnlock = currentStreak >= 7;
     if (ach.id === 'builds-10') shouldUnlock = completedDaysCount >= 10;
@@ -59,7 +59,11 @@ export function evaluateAchievements(data) {
     if (ach.id === 'milestone-30') shouldUnlock = completedDaysCount >= 30;
     if (ach.id === 'mastery-60') shouldUnlock = completedDaysCount >= 60;
 
-    return { ...ach, unlocked: shouldUnlock };
+    return { 
+      ...ach, 
+      unlocked: shouldUnlock,
+      claimed: shouldUnlock ? Boolean(ach.claimed) : false
+    };
   });
 
   return data;
@@ -218,7 +222,7 @@ export function claimAchievement(achievementId) {
   const current = getUserProgress();
   const index = current.achievements.findIndex(a => a.id === achievementId);
 
-  if (index !== -1) {
+  if (index !== -1 && current.achievements[index].unlocked) {
     current.achievements[index].claimed = true;
     current.achievements[index].claimedAt = new Date().toLocaleDateString();
     
