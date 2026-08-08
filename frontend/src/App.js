@@ -10,6 +10,23 @@ function App() {
   const [user, setUser] = useState(null);
   const [selectedDay, setSelectedDay] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('ABTalksTheme');
+    const defaultTheme = window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    setTheme(storedTheme || defaultTheme);
+  }, []);
+
+  useEffect(() => {
+    document.body.classList.remove('theme-light', 'theme-dark');
+    document.body.classList.add(`theme-${theme}`);
+    localStorage.setItem('ABTalksTheme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
+  };
 
   const loadUserData = async () => {
     try {
@@ -77,6 +94,11 @@ function App() {
 
   return (
     <div className="App">
+      <div className="theme-toggle-bar">
+        <button className="theme-toggle-btn" onClick={toggleTheme}>
+          {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        </button>
+      </div>
       {renderView()}
     </div>
   );

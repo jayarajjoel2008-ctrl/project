@@ -79,7 +79,6 @@ const LandingPage = ({ onStart }) => {
               key={track.id}
               className={`track-card ${selectedTrack === track.name ? 'selected' : ''}`}
               onClick={() => setSelectedTrack(track.name)}
-              style={{ '--track-color': track.color }}
             >
               <div className="track-icon">{track.icon}</div>
               <h3>{track.name}</h3>
