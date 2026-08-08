@@ -157,15 +157,37 @@ const AchievementCard = ({ achievements = [] }) => {
     ctx.font = '13px "JetBrains Mono", monospace';
     ctx.fillText(`${serialHash} • Issued: ${new Date().toLocaleDateString()}`, 400, 730);
 
-    // Trigger Instant PNG Download
-    const imageURI = canvas.toDataURL('image/png');
-    const downloadLink = document.createElement('a');
-    const filename = `ABTALKS-Badge-${achievement.title.replace(/\s+/g, '-')}.png`;
-    downloadLink.href = imageURI;
-    downloadLink.download = filename;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
+    // Convert Canvas to Blob for Native Gallery Share / Direct Device Storage Download
+    canvas.toBlob(async (blob) => {
+      if (!blob) return;
+
+      const filename = `ABTALKS-Badge-${achievement.title.replace(/\s+/g, '-')}.png`;
+      const file = new File([blob], filename, { type: 'image/png' });
+
+      // Try Native Mobile Web Share API first (iOS / Android Photo Gallery)
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            title: `ABTALKS 2.0 Badge - ${achievement.title}`,
+            text: `Check out my verified ${achievement.title} badge!`,
+            files: [file]
+          });
+          return;
+        } catch (shareErr) {
+          console.log('Fallback to direct file download');
+        }
+      }
+
+      // Direct Anchor Download to device storage
+      const imageURI = URL.createObjectURL(blob);
+      const downloadLink = document.createElement('a');
+      downloadLink.href = imageURI;
+      downloadLink.download = filename;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+      setTimeout(() => URL.revokeObjectURL(imageURI), 2000);
+    }, 'image/png');
   };
 
   /**
