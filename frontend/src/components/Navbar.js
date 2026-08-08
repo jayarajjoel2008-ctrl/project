@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSun, FaMoon, FaUserCircle } from 'react-icons/fa';
+import { getUserProgress } from '../utils/storage';
 import './Navbar.css';
 
 const Navbar = ({ theme, toggleTheme }) => {
+  const [userName, setUserName] = useState('Arvind');
+
+  useEffect(() => {
+    const current = getUserProgress();
+    if (current?.profile?.name) {
+      setUserName(current.profile.name);
+    }
+  }, []);
+
   return (
     <header className="abtalks-top-nav">
       <div className="nav-wrapper">
@@ -15,7 +25,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         <div className="nav-right-actions">
           <Link to="/dashboard" className="nav-profile-pill" title="Profile">
             <FaUserCircle className="user-icon" />
-            <span className="profile-text">Joel</span>
+            <span className="profile-text">{userName}</span>
           </Link>
 
           {toggleTheme && (

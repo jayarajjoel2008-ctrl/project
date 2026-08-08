@@ -7,7 +7,7 @@ import './BuildBuddy.css';
 const BuildBuddy = ({ isEmbedded = false }) => {
   const [isOpen, setIsOpen] = useState(isEmbedded);
   const [activeResponse, setActiveResponse] = useState(
-    "👋 **Hi Joel!** I'm Build Buddy, your AI coding mentor for Day 12. Tap any button below to get hints or debug guidance!"
+    "👋 **Hi Arvind!** I'm Build Buddy, your AI coding mentor for Day 12. Tap any button below to get hints or debug guidance!"
   );
 
   const handleOptionClick = (type) => {

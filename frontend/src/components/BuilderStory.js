@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin, FaAward } from 'react-icons/fa';
 import './BuilderStory.css';
 
 const BuilderStory = ({ profile, onActionClick }) => {
-  const name = profile?.name || "JOEL";
+  const name = profile?.name || "ARVIND";
   const role = profile?.role || "60-DAY BUILDER";
   const completed = profile?.completedDaysCount || 47;
   const total = profile?.totalDays || 60;
@@ -47,7 +47,7 @@ const BuilderStory = ({ profile, onActionClick }) => {
         </div>
       </div>
 
-      <button className="btn-view-story" onClick={onActionClick || (() => alert("Opening Joel's public builder story link..."))}>
+      <button className="btn-view-story" onClick={onActionClick || (() => alert("Opening Arvind's public builder story link..."))}>
         <span>View Builder Story</span>
         <FaAward />
       </button>
