@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaLock, FaMedal, FaStar, FaAward, FaTimes } from 'react-icons/fa';
+import { FaLock, FaStar, FaAward, FaTimes, FaShieldAlt, FaGem } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
 import './AchievementCard.css';
 
 const AchievementCard = ({ achievements = [] }) => {
   const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [flippedCards, setFlippedCards] = useState({});
 
   const unlockedCount = achievements.filter(a => a.unlocked).length;
+
+  const toggleFlip = (id, e) => {
+    e.stopPropagation();
+    setFlippedCards(prev => ({ ...prev, [id]: !prev[id] }));
+  };
 
   const triggerCelebration = (achievement) => {
     if (achievement.unlocked) {
       try {
-        confetti({ particleCount: 70, spread: 50, origin: { y: 0.6 } });
+        confetti({ 
+          particleCount: 90, 
+          spread: 70, 
+          origin: { y: 0.6 },
+          colors: ['#6c5ce7', '#06b6d4', '#f59e0b', '#10b981', '#a855f7']
+        });
       } catch (e) {
         console.log('Achievement celebration');
       }
@@ -20,117 +31,149 @@ const AchievementCard = ({ achievements = [] }) => {
   };
 
   return (
-    <div className="abtalks-achievements-wrapper">
-      <div className="achievements-header">
-        <div className="achievements-title-group">
-          <span className="trophy-header-icon"><FaAward /></span>
+    <div className="abtalks-cyber-achievements-container">
+      <div className="cyber-achievements-header">
+        <div className="cyber-header-left">
+          <span className="cyber-trophy-orb"><FaGem /></span>
           <div>
-            <h3>Trophy Room & Badges</h3>
-            <span className="achievements-subtext">Earn badges by maintaining daily build discipline</span>
+            <h3>CYBER TROPHY VAULT</h3>
+            <span className="cyber-subtext">Unlock futuristic builder badges & earn XP</span>
           </div>
         </div>
 
-        <div className="achievements-badge-pill">
-          <FaMedal className="medal-gold-icon" />
-          <span>{unlockedCount} / {achievements.length} Unlocked</span>
+        <div className="cyber-badge-counter">
+          <FaAward className="gold-award-icon" />
+          <span>{unlockedCount} / {achievements.length} UNLOCKED</span>
         </div>
       </div>
 
-      {/* HOLOGRAPHIC 3D BADGES CAROUSEL */}
-      <div className="achievements-h-scroll">
+      {/* ULTRA-UNIQUE CYBER HEXAGON / SHIELD BADGES CAROUSEL */}
+      <div className="cyber-badge-grid-scroll">
         {achievements.map((item) => {
           const rarityClass = item.rarity ? item.rarity.toLowerCase() : 'uncommon';
+          const isFlipped = Boolean(flippedCards[item.id]);
 
           return (
             <motion.div
               key={item.id}
-              className={`achievement-3d-card ${item.unlocked ? 'unlocked' : 'locked'} rarity-${rarityClass}`}
-              whileHover={{ y: -6, scale: 1.03 }}
-              whileTap={{ scale: 0.96 }}
+              className={`cyber-badge-card ${item.unlocked ? 'unlocked' : 'locked'} rarity-${rarityClass} ${isFlipped ? 'flipped' : ''}`}
+              whileHover={{ y: -8, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => {
                 setSelectedAchievement(item);
                 triggerCelebration(item);
               }}
             >
-              {item.unlocked && <div className="holographic-shine-bar"></div>}
+              {/* ROTATING LASER BORDER ACCENT */}
+              {item.unlocked && <div className="cyber-laser-spinner"></div>}
 
-              <div className="card-top-rarity">
-                {item.unlocked ? (
-                  <span className={`rarity-tag ${rarityClass}`}>{item.rarity || 'RARE'}</span>
-                ) : (
-                  <span className="rarity-tag locked-tag"><FaLock /> LOCKED</span>
-                )}
-              </div>
+              <div className="cyber-badge-inner">
+                {/* FRONT FACE */}
+                <div className="cyber-badge-front">
+                  <div className="badge-corner-tag">
+                    {item.unlocked ? (
+                      <span className={`cyber-rarity-pill ${rarityClass}`}>{item.rarity || 'RARE'}</span>
+                    ) : (
+                      <span className="cyber-rarity-pill locked-pill"><FaLock /> LOCKED</span>
+                    )}
+                  </div>
 
-              <div className="badge-orb-wrapper">
-                <div className={`badge-icon-orb ${item.unlocked ? 'glow' : 'locked'}`}>
-                  <span>{item.icon}</span>
+                  <div className="cyber-hexagon-frame">
+                    <div className="hexagon-glow-aura"></div>
+                    <span className="cyber-badge-emoji">{item.icon}</span>
+                  </div>
+
+                  <span className="cyber-badge-title">{item.title}</span>
+                  
+                  {item.unlocked ? (
+                    <span className="cyber-badge-xp">+{item.points || 150} XP</span>
+                  ) : (
+                    <span className="cyber-badge-status-locked">LOCKED</span>
+                  )}
+
+                  {item.unlocked && (
+                    <button 
+                      className="btn-quick-flip" 
+                      onClick={(e) => toggleFlip(item.id, e)}
+                      title="Flip for info"
+                    >
+                      ⚡ info
+                    </button>
+                  )}
                 </div>
-              </div>
 
-              <div className="badge-details">
-                <span className="badge-name">{item.title}</span>
-                {item.points && (
-                  <span className="badge-pts">+{item.points} XP</span>
-                )}
+                {/* BACK FACE (CARD FLIP INFO) */}
+                <div className="cyber-badge-back">
+                  <span className="back-rarity-header">{item.rarity || 'RARE'} BADGE</span>
+                  <p className="back-desc">{item.desc}</p>
+                  <span className="back-xp-reward">Reward: +{item.points || 150} XP</span>
+                  <button className="btn-flip-back" onClick={(e) => toggleFlip(item.id, e)}>
+                    ← Back
+                  </button>
+                </div>
               </div>
             </motion.div>
           );
         })}
       </div>
 
-      {/* INTERACTIVE TROPHY DETAIL MODAL */}
+      {/* ULTRA-UNIQUE CYBER MODAL SHOWCASE */}
       <AnimatePresence>
         {selectedAchievement && (
           <motion.div 
-            className="achievement-detail-modal-overlay"
+            className="cyber-modal-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedAchievement(null)}
           >
             <motion.div 
-              className={`trophy-modal-card ${selectedAchievement.unlocked ? 'unlocked-card' : 'locked-card'}`}
-              initial={{ scale: 0.85, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.85, y: 30 }}
+              className={`cyber-trophy-modal ${selectedAchievement.unlocked ? 'unlocked' : 'locked'}`}
+              initial={{ scale: 0.8, rotateX: 20 }}
+              animate={{ scale: 1, rotateX: 0 }}
+              exit={{ scale: 0.8, rotateX: -20 }}
+              transition={{ type: 'spring', damping: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="btn-modal-close-icon" onClick={() => setSelectedAchievement(null)}>
+              <button className="cyber-modal-close" onClick={() => setSelectedAchievement(null)}>
                 <FaTimes />
               </button>
 
-              <div className="modal-badge-hero-orb">
-                <span className="hero-emoji">{selectedAchievement.icon}</span>
-                {selectedAchievement.unlocked && <div className="orb-halo-pulse"></div>}
+              <div className="cyber-modal-header-tag">
+                <FaShieldAlt /> VERIFIED BUILDER TROPHY
               </div>
 
-              <div className="modal-rarity-row">
-                <span className={`rarity-chip ${selectedAchievement.rarity ? selectedAchievement.rarity.toLowerCase() : 'rare'}`}>
-                  <FaStar /> {selectedAchievement.rarity || 'RARE'} ACHIEVEMENT
+              <div className="cyber-modal-hero-hexagon">
+                <div className="hero-hexagon-border"></div>
+                <span className="hero-emoji-icon">{selectedAchievement.icon}</span>
+              </div>
+
+              <div className="cyber-modal-rarity-row">
+                <span className={`cyber-rarity-pill ${selectedAchievement.rarity ? selectedAchievement.rarity.toLowerCase() : 'rare'}`}>
+                  <FaStar /> {selectedAchievement.rarity || 'RARE'} TIER
                 </span>
-                {selectedAchievement.points && (
-                  <span className="xp-chip">+{selectedAchievement.points} BUILD XP</span>
-                )}
+                <span className="cyber-xp-pill">+{selectedAchievement.points || 150} XP REWARD</span>
               </div>
 
-              <h3 className="modal-trophy-title">{selectedAchievement.title}</h3>
-              <p className="modal-trophy-desc">{selectedAchievement.desc}</p>
+              <h3 className="cyber-modal-title">{selectedAchievement.title}</h3>
+              <p className="cyber-modal-desc">{selectedAchievement.desc}</p>
 
-              <div className="modal-status-callout">
-                {selectedAchievement.unlocked ? (
-                  <span className="callout-text success">✓ BADGE UNLOCKED & CLAIMED</span>
-                ) : (
-                  <span className="callout-text locked"><FaLock /> Complete requirements to unlock</span>
-                )}
-              </div>
+              {selectedAchievement.unlocked ? (
+                <div className="cyber-unlocked-status-banner">
+                  <FaAward /> <span>BADGE UNLOCKED & RECORDED ON PROFILE</span>
+                </div>
+              ) : (
+                <div className="cyber-locked-status-banner">
+                  <FaLock /> <span>LOCK STATUS: COMPLETE CHALLENGES TO CLAIM</span>
+                </div>
+              )}
 
               {selectedAchievement.unlocked && (
                 <button 
-                  className="btn-celebrate-again"
+                  className="btn-cyber-celebrate"
                   onClick={() => triggerCelebration(selectedAchievement)}
                 >
-                  Celebrate Unlock 🎉
+                  Trigger Victory Spark 🎉
                 </button>
               )}
             </motion.div>
