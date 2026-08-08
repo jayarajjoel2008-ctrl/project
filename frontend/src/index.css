@@ -1,6 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Unbounded:wght@700;800;900&display=swap');
 
 :root {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+  --font-code: 'Fira Code', monospace;
+  --font-display: 'Unbounded', sans-serif;
+
   --bg-app: #090a10;
   --bg-card: rgba(18, 19, 31, 0.95);
   --bg-card-hover: rgba(26, 27, 46, 0.95);
@@ -53,13 +58,18 @@ html {
 
 body {
   min-height: 100%;
-  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-app);
   color: var(--text-body);
   line-height: 1.5;
   overflow-x: hidden;
   padding-bottom: calc(76px + var(--safe-area-bottom));
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
 }
 
 /* Desktop Mobile Viewport Device Centering Container */
