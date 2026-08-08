@@ -26,12 +26,12 @@ export const INITIAL_USER_PROFILE = {
 };
 
 export const ACHIEVEMENTS = [
-  { id: 'streak-7', icon: '🔥', title: '7 Day Streak', desc: 'Maintained 7 consecutive build days', unlocked: true },
-  { id: 'builds-10', icon: '🏗️', title: '10 Builds', desc: 'Completed 10 full daily projects', unlocked: true },
-  { id: 'posts-10', icon: '📢', title: '10 Public Posts', desc: 'Shared 10 proof posts on LinkedIn', unlocked: true },
-  { id: 'github-builder', icon: '💻', title: 'GitHub Builder', desc: 'Pushed 40+ commits to public repos', unlocked: true },
-  { id: 'milestone-30', icon: '🏆', title: '30 Day Milestone', desc: 'Crossed the 50% challenge mark', unlocked: true },
-  { id: 'mastery-60', icon: '👑', title: '60 Day Master', desc: 'Complete all 60 daily challenges', unlocked: false }
+  { id: 'streak-7', icon: '🔥', title: '7 Day Streak', desc: 'Maintained 7 consecutive build days', unlocked: true, rarity: 'RARE', points: 150 },
+  { id: 'builds-10', icon: '🏗️', title: '10 Builds', desc: 'Completed 10 full daily projects', unlocked: true, rarity: 'UNCOMMON', points: 100 },
+  { id: 'posts-10', icon: '📢', title: '10 Public Posts', desc: 'Shared 10 proof posts on LinkedIn', unlocked: true, rarity: 'RARE', points: 200 },
+  { id: 'github-builder', icon: '💻', title: 'GitHub Builder', desc: 'Pushed 40+ commits to public repos', unlocked: true, rarity: 'EPIC', points: 300 },
+  { id: 'milestone-30', icon: '🏆', title: '30 Day Milestone', desc: 'Crossed the 50% challenge mark', unlocked: true, rarity: 'EPIC', points: 500 },
+  { id: 'mastery-60', icon: '👑', title: '60 Day Master', desc: 'Complete all 60 daily challenges', unlocked: false, rarity: 'LEGENDARY', points: 1000 }
 ];
 
 export const CHALLENGES = Array.from({ length: 60 }, (_, i) => {
