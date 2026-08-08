@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { FaGithub, FaLinkedin, FaExclamationCircle, FaSpinner } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaExclamationCircle, FaSpinner, FaEdit } from 'react-icons/fa';
 import './SubmissionForm.css';
 
-const SubmissionForm = ({ onSubmitSuccess, initialRepo = '', initialCommit = '', initialLinkedin = '' }) => {
+const SubmissionForm = ({ onSubmitSuccess, initialRepo = '', initialCommit = '', initialLinkedin = '', initialDescription = '' }) => {
   const [githubRepo, setGithubRepo] = useState(initialRepo);
   const [githubCommit, setGithubCommit] = useState(initialCommit);
   const [linkedinUrl, setLinkedinUrl] = useState(initialLinkedin);
+  const [projectDescription, setProjectDescription] = useState(initialDescription);
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -33,17 +34,18 @@ const SubmissionForm = ({ onSubmitSuccess, initialRepo = '', initialCommit = '',
         onSubmitSuccess({
           githubRepo,
           githubCommit: githubCommit || githubRepo,
-          linkedinUrl
+          linkedinUrl,
+          projectDescription
         });
       }
-    }, 1500);
+    }, 1200);
   };
 
   return (
     <form className="abtalks-submission-form" onSubmit={handleSubmit}>
       <div className="form-section-title">
         <h3>Submit Proof of Work</h3>
-        <p>Your submissions verify your 60-day public builder journey</p>
+        <p>Verify your build and describe what you created today</p>
       </div>
 
       {errorMsg && (
@@ -51,6 +53,23 @@ const SubmissionForm = ({ onSubmitSuccess, initialRepo = '', initialCommit = '',
           <FaExclamationCircle /> {errorMsg}
         </div>
       )}
+
+      {/* ABOUT YOUR PROJECT DESCRIPTION SPACE */}
+      <div className="form-group">
+        <label>
+          <FaEdit /> About Your Project (Project Description)
+        </label>
+        <textarea
+          rows={4}
+          className="form-project-textarea"
+          placeholder="Describe your project, key features, tech stack used, challenges solved, and what you built today..."
+          value={projectDescription}
+          onChange={(e) => setProjectDescription(e.target.value)}
+        />
+        <span className="form-input-help">
+          Write a brief summary about your project to showcase in your Proof Vault.
+        </span>
+      </div>
 
       {/* GITHUB PROOF */}
       <div className="form-group">

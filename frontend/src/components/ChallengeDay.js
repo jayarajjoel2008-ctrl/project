@@ -7,6 +7,7 @@ function ChallengeDay({ day, user, onBack }) {
   const [loading, setLoading] = useState(true);
   const [githubUrl, setGithubUrl] = useState('');
   const [linkedinUrl, setLinkedinUrl] = useState('');
+  const [projectDescription, setProjectDescription] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
@@ -47,6 +48,7 @@ function ChallengeDay({ day, user, onBack }) {
         day: day,
         githubUrl: githubUrl,
         linkedinUrl: linkedinUrl,
+        projectDescription: projectDescription
       });
 
       if (response.data?.success) {
@@ -129,6 +131,16 @@ function ChallengeDay({ day, user, onBack }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="submission-form">
+              <div className="form-group">
+                <label>About Your Project (Description)</label>
+                <textarea 
+                  rows={4}
+                  placeholder="Describe your project, key features, tech stack used, and what you built..."
+                  value={projectDescription}
+                  onChange={(e) => setProjectDescription(e.target.value)}
+                />
+              </div>
+
               <div className="form-group">
                 <label>GitHub Commit / Repository URL *</label>
                 <input 
