@@ -60,80 +60,105 @@ const AchievementCard = ({ achievements = [] }) => {
    */
   const downloadBadgeImage = (achievement) => {
     const canvas = document.createElement('canvas');
-    canvas.width = 700;
-    canvas.height = 700;
+    canvas.width = 800;
+    canvas.height = 800;
     const ctx = canvas.getContext('2d');
 
-    // 1. Background Gradient
-    const bgGrad = ctx.createLinearGradient(0, 0, 700, 700);
-    bgGrad.addColorStop(0, '#090a10');
-    bgGrad.addColorStop(0.5, '#12131f');
-    bgGrad.addColorStop(1, '#1a1b2e');
+    const mainColor = achievement.rarity === 'LEGENDARY' ? '#f59e0b' : achievement.rarity === 'EPIC' ? '#a855f7' : '#06b6d4';
+
+    // 1. Cyber Dark Metallic Background Gradient
+    const bgGrad = ctx.createRadialGradient(400, 400, 50, 400, 400, 560);
+    bgGrad.addColorStop(0, '#151728');
+    bgGrad.addColorStop(0.6, '#0c0d16');
+    bgGrad.addColorStop(1, '#06070a');
     ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 700, 700);
+    ctx.fillRect(0, 0, 800, 800);
 
-    // 2. Outer Neon Border Frame
-    const rarityColor = achievement.rarity === 'LEGENDARY' ? '#f59e0b' : achievement.rarity === 'EPIC' ? '#a855f7' : '#06b6d4';
-    ctx.strokeStyle = rarityColor;
-    ctx.lineWidth = 8;
-    ctx.strokeRect(30, 30, 640, 640);
+    // 2. Dual Laser Frame Lines
+    ctx.strokeStyle = mainColor;
+    ctx.lineWidth = 10;
+    ctx.strokeRect(36, 36, 728, 728);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(42, 42, 616, 616);
+    ctx.strokeRect(50, 50, 700, 700);
 
-    // 3. Header Text
+    // Corner Ornaments
+    const drawCorner = (x, y) => {
+      ctx.fillStyle = mainColor;
+      ctx.fillRect(x, y, 20, 20);
+    };
+    drawCorner(36, 36);
+    drawCorner(744, 36);
+    drawCorner(36, 744);
+    drawCorner(744, 744);
+
+    // 3. Top Header Brand Tag
     ctx.fillStyle = '#6c5ce7';
-    ctx.font = '800 22px "JetBrains Mono", monospace';
+    ctx.font = '800 20px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('ABTALKS 2.0 • OFFICIAL BUILDER BADGE', 350, 90);
+    ctx.fillText('ABTALKS 2.0 • OFFICIAL DIGITAL BUILDER CERTIFICATE', 400, 95);
 
-    // 4. Central Hexagon Shield Orb
-    ctx.fillStyle = 'rgba(108, 92, 231, 0.15)';
+    // 4. Central Hexagon Shield Orb Emblem
+    ctx.fillStyle = 'rgba(108, 92, 231, 0.16)';
     ctx.beginPath();
-    ctx.arc(350, 240, 90, 0, Math.PI * 2);
+    ctx.arc(400, 260, 95, 0, Math.PI * 2);
     ctx.fill();
-    ctx.strokeStyle = rarityColor;
+
+    ctx.strokeStyle = mainColor;
     ctx.lineWidth = 4;
     ctx.stroke();
 
-    // 5. Badge Emoji / Icon
-    ctx.font = '90px sans-serif';
-    ctx.fillText(achievement.icon || '🏆', 350, 270);
+    // Inner Ring
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(400, 260, 82, 0, Math.PI * 2);
+    ctx.stroke();
 
-    // 6. Rarity Pill Tag
-    ctx.fillStyle = rarityColor;
-    ctx.font = '800 16px "JetBrains Mono", monospace';
-    ctx.fillText(`[ ${achievement.rarity || 'RARE'} TIER BADGE ]`, 350, 370);
+    // Emoji / Icon
+    ctx.font = '100px sans-serif';
+    ctx.fillText(achievement.icon || '🏆', 400, 295);
 
-    // 7. Achievement Title
+    // 5. Rarity Tier Chip
+    ctx.fillStyle = mainColor;
+    ctx.font = '800 18px "JetBrains Mono", monospace';
+    ctx.fillText(`[ ${achievement.rarity || 'RARE'} TIER • +${achievement.points || 150} XP ]`, 400, 400);
+
+    // 6. Achievement Title
     ctx.fillStyle = '#ffffff';
-    ctx.font = '800 32px "Syne", sans-serif';
-    ctx.fillText(achievement.title, 350, 420);
+    ctx.font = '800 36px "Syne", sans-serif';
+    ctx.fillText(achievement.title, 400, 455);
 
-    // 8. Description
+    // 7. Achievement Description
     ctx.fillStyle = '#94a3b8';
     ctx.font = '500 18px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(achievement.desc, 350, 460);
+    ctx.fillText(achievement.desc, 400, 495);
 
-    // 9. Verified Student Awardee Name
-    ctx.fillStyle = '#f8fafc';
-    ctx.font = '700 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`AWARDED TO: ${userName.toUpperCase()}`, 350, 525);
-
-    ctx.fillStyle = '#10b981';
-    ctx.font = '700 16px "JetBrains Mono", monospace';
-    ctx.fillText('✓ VERIFIED PUBLIC PROOF OF WORK', 350, 560);
-
-    // 10. Footer Seal Signature
+    // 8. Awarded To Section
     ctx.fillStyle = '#64748b';
-    ctx.font = '14px "JetBrains Mono", monospace';
-    ctx.fillText(`Issued: ${new Date().toLocaleDateString()} • Verified Digital Certificate`, 350, 620);
+    ctx.font = '700 14px "JetBrains Mono", monospace';
+    ctx.fillText('THIS CERTIFICATE IS OFFICIALLY PRESENTED TO:', 400, 565);
+
+    ctx.fillStyle = '#f8fafc';
+    ctx.font = '900 36px "Syne", sans-serif';
+    ctx.fillText(userName.toUpperCase(), 400, 615);
+
+    // Verified Stamp
+    ctx.fillStyle = '#10b981';
+    ctx.font = '800 16px "JetBrains Mono", monospace';
+    ctx.fillText('✓ VERIFIED PUBLIC PROOF OF WORK • 60-DAY FULL-STACK TRACK', 400, 660);
+
+    // Serial & Signature Line
+    const serialHash = `CERT-ID: #ABTALKS-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+    ctx.fillStyle = '#64748b';
+    ctx.font = '13px "JetBrains Mono", monospace';
+    ctx.fillText(`${serialHash} • Issued: ${new Date().toLocaleDateString()}`, 400, 725);
 
     // Trigger Instant PNG Download
     const imageURI = canvas.toDataURL('image/png');
     const downloadLink = document.createElement('a');
-    const filename = `ABTALKS-Badge-${achievement.title.replace(/\s+/g, '-')}.png`;
+    const filename = `ABTALKS-Certificate-${achievement.title.replace(/\s+/g, '-')}.png`;
     downloadLink.href = imageURI;
     downloadLink.download = filename;
     document.body.appendChild(downloadLink);

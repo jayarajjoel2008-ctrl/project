@@ -49,14 +49,24 @@ export function evaluateAchievements(data) {
   const linkedinPostsCount = data.profile.linkedinPostsCount || 0;
   const githubProofsCount = data.profile.githubProofsCount || 0;
 
+  // Merge any new default achievements into stored list if missing
+  const existingIds = data.achievements.map(a => a.id);
+  ACHIEVEMENTS.forEach(defaultAch => {
+    if (!existingIds.includes(defaultAch.id)) {
+      data.achievements.push({ ...defaultAch });
+    }
+  });
+
   data.achievements = data.achievements.map(ach => {
     let shouldUnlock = false;
 
     if (ach.id === 'streak-7') shouldUnlock = currentStreak >= 7;
     if (ach.id === 'builds-10') shouldUnlock = completedDaysCount >= 10;
     if (ach.id === 'posts-10') shouldUnlock = linkedinPostsCount >= 10;
-    if (ach.id === 'github-builder') shouldUnlock = githubProofsCount >= 40;
+    if (ach.id === 'milestone-15') shouldUnlock = completedDaysCount >= 15;
     if (ach.id === 'milestone-30') shouldUnlock = completedDaysCount >= 30;
+    if (ach.id === 'milestone-45') shouldUnlock = completedDaysCount >= 45;
+    if (ach.id === 'github-builder') shouldUnlock = githubProofsCount >= 40;
     if (ach.id === 'mastery-60') shouldUnlock = completedDaysCount >= 60;
 
     return { 
