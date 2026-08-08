@@ -171,6 +171,23 @@ export function rescueStreak() {
   return current;
 }
 
+export function claimAchievement(achievementId) {
+  const current = getUserProgress();
+  const index = current.achievements.findIndex(a => a.id === achievementId);
+
+  if (index !== -1) {
+    current.achievements[index].claimed = true;
+    current.achievements[index].claimedAt = new Date().toLocaleDateString();
+    
+    // Add XP points to profile
+    const pts = current.achievements[index].points || 150;
+    current.profile.totalXp = (current.profile.totalXp || 1250) + pts;
+    
+    saveUserProgress(current);
+  }
+  return current;
+}
+
 export function resetProgressToFirstDay() {
   const current = getUserProgress();
   const startDate = new Date(); // Reset start date to today
