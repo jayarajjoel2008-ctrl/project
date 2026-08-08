@@ -435,3 +435,20 @@
   border-radius: 20px;
   min-height: 44px;
 }
+
+.btn-modal-action-disabled {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 12px;
+  border-radius: 25px;
+  text-align: center;
+  min-height: 46px;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}

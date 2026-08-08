@@ -9,8 +9,8 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [midnightTimer, setMidnightTimer] = useState(getTimeUntilMidnight());
 
-  const lastCompletedDay = getLastCompletedDay(); // e.g. 12
-  const nextUnlockingDay = lastCompletedDay + 1; // e.g. 13
+  const lastCompletedDay = getLastCompletedDay(); // e.g. 11
+  const nextUnlockingDay = lastCompletedDay + 1; // e.g. 12
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -56,7 +56,7 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
               className={`filter-tab ${activeFilter === 'locked' ? 'active' : ''}`}
               onClick={() => setActiveFilter('locked')}
             >
-              Locked ({Math.max(0, 60 - lastCompletedDay - 1)})
+              Locked ({Math.max(0, 60 - lastCompletedDay)})
             </button>
           </div>
         </div>
@@ -97,15 +97,17 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
                 {isCompleted ? (
                   <span className="cell-check-badge"><FaCheck /></span>
                 ) : isNextTarget ? (
-                  <span className="cell-target-badge">NEXT LEVEL</span>
+                  <span className="cell-target-badge">UNLOCKS 12:00 AM</span>
                 ) : !unlocked ? (
                   <span className="cell-lock-icon"><FaLock /></span>
                 ) : null}
               </div>
 
-              <div className="cell-title-sub">{c.title.replace(`Day ${c.day}: `, '')}</div>
+              <div className="cell-title-sub">
+                {unlocked ? c.title.replace(`Day ${c.day}: `, '') : `Day ${c.day} Challenge (Locked)`}
+              </div>
 
-              {isNextTarget && !isCompleted && (
+              {isNextTarget && !unlocked && (
                 <div className="cell-next-timer-mini">
                   ⏱️ Unlocks 12:00 AM ({midnightTimer.hours}h {midnightTimer.minutes}m)
                 </div>
@@ -137,69 +139,80 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
               ) : selectedChallenge.day === nextUnlockingDay ? (
                 <span className="badge-status timer">⏱️ Unlocks 12:00 AM Midnight</span>
               ) : (
-                <span className="badge-status locked">🔒 Locked — Complete Level {selectedChallenge.day - 1} First</span>
+                <span className="badge-status locked">🔒 Locked Level</span>
               )}
             </div>
 
-            <h3 className="modal-title">{selectedChallenge.title}</h3>
-            <p className="modal-objective">{selectedChallenge.objective}</p>
+            {/* IF UNLOCKED: SHOW FULL TITLE & OBJECTIVE. IF LOCKED: LOCK & OBSCURE */}
+            {isDayUnlocked(selectedChallenge.day) ? (
+              <>
+                <h3 className="modal-title">{selectedChallenge.title}</h3>
+                <p className="modal-objective">{selectedChallenge.objective}</p>
 
-            {/* COUNTDOWN TIMER INSIDE MODAL FOR NEXT UNLOCKING LEVEL */}
-            {selectedChallenge.day === nextUnlockingDay && !selectedChallenge.submitted && (
-              <div className="modal-countdown-timer-box">
-                <FaClock />
-                <span>Next Day Unlocks in: <strong>{midnightTimer.formatted}</strong></span>
-              </div>
-            )}
+                <div className="modal-proof-links-box">
+                  <h4>Verified Proof URLs</h4>
+                  {selectedChallenge.githubRepoUrl ? (
+                    <a 
+                      href={selectedChallenge.githubRepoUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="proof-link-item github"
+                    >
+                      <FaGithub />
+                      <span className="link-text">GitHub Repository Proof</span>
+                      <FaExternalLinkAlt className="ext-icon" />
+                    </a>
+                  ) : (
+                    <div className="proof-link-item placeholder">
+                      <FaGithub /> <span>No GitHub proof submitted yet</span>
+                    </div>
+                  )}
 
-            <div className="modal-proof-links-box">
-              <h4>Verified Proof URLs</h4>
-              
-              {selectedChallenge.githubRepoUrl ? (
-                <a 
-                  href={selectedChallenge.githubRepoUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="proof-link-item github"
-                >
-                  <FaGithub />
-                  <span className="link-text">GitHub Repository Proof</span>
-                  <FaExternalLinkAlt className="ext-icon" />
-                </a>
-              ) : (
-                <div className="proof-link-item placeholder">
-                  <FaGithub /> <span>No GitHub proof submitted yet</span>
+                  {selectedChallenge.linkedinUrl ? (
+                    <a 
+                      href={selectedChallenge.linkedinUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="proof-link-item linkedin"
+                    >
+                      <FaLinkedin />
+                      <span className="link-text">LinkedIn Post Proof</span>
+                      <FaExternalLinkAlt className="ext-icon" />
+                    </a>
+                  ) : (
+                    <div className="proof-link-item placeholder">
+                      <FaLinkedin /> <span>No LinkedIn proof submitted yet</span>
+                    </div>
+                  )}
                 </div>
-              )}
 
-              {selectedChallenge.linkedinUrl ? (
-                <a 
-                  href={selectedChallenge.linkedinUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="proof-link-item linkedin"
-                >
-                  <FaLinkedin />
-                  <span className="link-text">LinkedIn Post Proof</span>
-                  <FaExternalLinkAlt className="ext-icon" />
-                </a>
-              ) : (
-                <div className="proof-link-item placeholder">
-                  <FaLinkedin /> <span>No LinkedIn proof submitted yet</span>
+                <div className="modal-actions-row">
+                  <Link 
+                    to={`/day/${selectedChallenge.day}`} 
+                    className="btn-modal-action-primary"
+                    onClick={() => setSelectedChallenge(null)}
+                  >
+                    {selectedChallenge.submitted ? 'View / Edit Proof →' : 'Start Level Challenge →'}
+                  </Link>
+
+                  <button className="btn-modal-close-secondary" onClick={() => setSelectedChallenge(null)}>
+                    Close
+                  </button>
                 </div>
-              )}
-            </div>
+              </>
+            ) : (
+              <>
+                <h3 className="modal-title">🔒 Day {selectedChallenge.day} Challenge Statements Locked</h3>
+                <p className="modal-objective">
+                  Build statements, requirements, and challenge access unlock automatically at 12:00 AM Midnight.
+                </p>
 
-            <div className="modal-actions-row">
-              {isDayUnlocked(selectedChallenge.day) ? (
-                <Link 
-                  to={`/day/${selectedChallenge.day}`} 
-                  className="btn-modal-action-primary"
-                  onClick={() => setSelectedChallenge(null)}
-                >
-                  {selectedChallenge.submitted ? 'View / Edit Proof →' : 'Start Level Challenge →'}
-                </Link>
-              ) : (
+                {/* LIVE COUNTDOWN TIMER INSIDE MODAL */}
+                <div className="modal-countdown-timer-box">
+                  <FaClock className="hourglass-spin" />
+                  <span>Unlocks in: <strong>{midnightTimer.formatted}</strong></span>
+                </div>
+
                 <div className="locked-notice-banner">
                   <FaLock />
                   <span>
@@ -208,12 +221,18 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
                       : `Complete Level Day ${selectedChallenge.day - 1} to unlock this challenge`}
                   </span>
                 </div>
-              )}
 
-              <button className="btn-modal-close-secondary" onClick={() => setSelectedChallenge(null)}>
-                Close
-              </button>
-            </div>
+                <div className="modal-actions-row">
+                  <button className="btn-modal-action-disabled" disabled>
+                    🔒 Challenge Unlocks at 12:00 AM Midnight
+                  </button>
+
+                  <button className="btn-modal-close-secondary" onClick={() => setSelectedChallenge(null)}>
+                    Close
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
