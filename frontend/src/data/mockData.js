@@ -26,10 +26,10 @@ export const INITIAL_USER_PROFILE = {
 };
 
 export const ACHIEVEMENTS = [
-  { id: 'milestone-15', icon: '⚡', title: 'Day 15 Challenge', desc: 'Complete 15 daily challenge builds', unlocked: false, rarity: 'RARE', points: 250, target: 15, type: 'days' },
-  { id: 'milestone-30', icon: '🏆', title: 'Day 30 Challenge', desc: 'Cross the 50% challenge mark (30 Days)', unlocked: false, rarity: 'EPIC', points: 500, target: 30, type: 'days' },
-  { id: 'milestone-45', icon: '💎', title: 'Day 45 Challenge', desc: 'Cross the 75% challenge milestone (45 Days)', unlocked: false, rarity: 'EPIC', points: 750, target: 45, type: 'days' },
-  { id: 'mastery-60', icon: '👑', title: 'Day 60 Challenge', desc: 'Complete all 60 daily challenges', unlocked: false, rarity: 'LEGENDARY', points: 1000, target: 60, type: 'days' },
+  { id: 'milestone-15', icon: '⚡', title: '15 Day Milestone', desc: 'Complete 15 daily challenge builds', unlocked: false, rarity: 'RARE', points: 250, target: 15, type: 'days' },
+  { id: 'milestone-30', icon: '🏆', title: '30 Day Milestone', desc: 'Cross the 50% challenge mark (30 Days)', unlocked: false, rarity: 'EPIC', points: 500, target: 30, type: 'days' },
+  { id: 'milestone-45', icon: '💎', title: '45 Day Milestone', desc: 'Cross the 75% challenge milestone (45 Days)', unlocked: false, rarity: 'EPIC', points: 750, target: 45, type: 'days' },
+  { id: 'mastery-60', icon: '👑', title: '60 Day Milestone', desc: 'Complete all 60 daily challenges', unlocked: false, rarity: 'LEGENDARY', points: 1000, target: 60, type: 'days' },
   { id: 'streak-7', icon: '🔥', title: '7 Day Streak', desc: 'Maintain 7 consecutive build days', unlocked: true, rarity: 'RARE', points: 150, target: 7, type: 'streak' },
   { id: 'builds-10', icon: '🏗️', title: '10 Builds Milestone', desc: 'Complete 10 full daily projects', unlocked: true, rarity: 'UNCOMMON', points: 100, target: 10, type: 'days' },
   { id: 'posts-10', icon: '📢', title: '10 Public Posts', desc: 'Share 10 proof posts on LinkedIn', unlocked: true, rarity: 'RARE', points: 200, target: 10, type: 'posts' },

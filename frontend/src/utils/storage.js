@@ -58,6 +58,9 @@ export function evaluateAchievements(data) {
   });
 
   data.achievements = data.achievements.map(ach => {
+    const defaultMatch = ACHIEVEMENTS.find(a => a.id === ach.id);
+    const updatedTitle = defaultMatch ? defaultMatch.title : ach.title;
+
     let shouldUnlock = false;
 
     if (ach.id === 'streak-7') shouldUnlock = currentStreak >= 7;
@@ -71,6 +74,7 @@ export function evaluateAchievements(data) {
 
     return { 
       ...ach, 
+      title: updatedTitle,
       unlocked: shouldUnlock,
       claimed: shouldUnlock ? Boolean(ach.claimed) : false
     };
