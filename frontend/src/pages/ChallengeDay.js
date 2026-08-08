@@ -50,7 +50,8 @@ const ChallengeDay = ({ theme, toggleTheme }) => {
       dayNum,
       proofData.githubRepo,
       proofData.githubCommit,
-      proofData.linkedinUrl
+      proofData.linkedinUrl,
+      proofData.projectDescription
     );
     setData(updated);
 

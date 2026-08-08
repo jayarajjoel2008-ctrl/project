@@ -174,7 +174,7 @@ export function getTimeUntilMidnight() {
   return { hours, minutes, seconds, formatted, diffMs };
 }
 
-export function submitDayProof(dayNum, githubRepo, githubCommit, linkedinUrl) {
+export function submitDayProof(dayNum, githubRepo, githubCommit, linkedinUrl, projectDescription = '') {
   const current = getUserProgress();
   const dayIndex = current.challenges.findIndex(c => c.day === Number(dayNum));
 
@@ -184,6 +184,9 @@ export function submitDayProof(dayNum, githubRepo, githubCommit, linkedinUrl) {
     challenge.githubRepoUrl = githubRepo;
     challenge.githubCommitUrl = githubCommit;
     challenge.linkedinUrl = linkedinUrl;
+    if (projectDescription) {
+      challenge.projectDescription = projectDescription;
+    }
     
     // Mark checklist items completed
     challenge.checklist = challenge.checklist.map(item => ({ ...item, completed: true }));

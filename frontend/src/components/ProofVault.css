@@ -452,3 +452,37 @@
   justify-content: center;
   gap: 8px;
 }
+
+/* ABOUT YOUR PROJECT BOX IN MODAL */
+.modal-project-about-box {
+  width: 100%;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.modal-project-about-box h4 {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  color: var(--text-title);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-desc-text {
+  font-size: 0.86rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.project-desc-placeholder {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}

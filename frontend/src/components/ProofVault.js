@@ -149,6 +149,18 @@ const ProofVault = ({ challenges = [], limit = 60, showHeader = true }) => {
                 <h3 className="modal-title">{selectedChallenge.title}</h3>
                 <p className="modal-objective">{selectedChallenge.objective}</p>
 
+                {/* ABOUT YOUR PROJECT DESCRIPTION SECTION */}
+                <div className="modal-project-about-box">
+                  <h4>📝 About Your Project</h4>
+                  {selectedChallenge.projectDescription ? (
+                    <p className="project-desc-text">{selectedChallenge.projectDescription}</p>
+                  ) : (
+                    <p className="project-desc-placeholder">
+                      No project description written yet. Click <strong>"View / Edit Proof"</strong> below to add your project notes!
+                    </p>
+                  )}
+                </div>
+
                 <div className="modal-proof-links-box">
                   <h4>Verified Proof URLs</h4>
                   {selectedChallenge.githubRepoUrl ? (
