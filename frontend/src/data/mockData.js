@@ -26,14 +26,14 @@ export const INITIAL_USER_PROFILE = {
 };
 
 export const ACHIEVEMENTS = [
-  { id: 'streak-7', icon: '🔥', title: '7 Day Streak', desc: 'Maintained 7 consecutive build days', unlocked: true, rarity: 'RARE', points: 150 },
-  { id: 'builds-10', icon: '🏗️', title: '10 Builds', desc: 'Completed 10 full daily projects', unlocked: true, rarity: 'UNCOMMON', points: 100 },
-  { id: 'posts-10', icon: '📢', title: '10 Public Posts', desc: 'Shared 10 proof posts on LinkedIn', unlocked: true, rarity: 'RARE', points: 200 },
-  { id: 'milestone-15', icon: '⚡', title: '15 Day Sprint', desc: 'Completed 15 daily challenge builds', unlocked: false, rarity: 'RARE', points: 250 },
-  { id: 'milestone-30', icon: '🏆', title: '30 Day Milestone', desc: 'Crossed the 50% challenge mark (30 Days)', unlocked: false, rarity: 'EPIC', points: 500 },
-  { id: 'milestone-45', icon: '💎', title: '45 Day Legend', desc: 'Crossed the 75% challenge milestone (45 Days)', unlocked: false, rarity: 'EPIC', points: 750 },
-  { id: 'github-builder', icon: '💻', title: 'GitHub Builder', desc: 'Pushed 40+ commits to public repos', unlocked: false, rarity: 'EPIC', points: 300 },
-  { id: 'mastery-60', icon: '👑', title: '60 Day Master', desc: 'Complete all 60 daily challenges', unlocked: false, rarity: 'LEGENDARY', points: 1000 }
+  { id: 'milestone-15', icon: '⚡', title: 'Day 15 Challenge', desc: 'Complete 15 daily challenge builds', unlocked: false, rarity: 'RARE', points: 250, target: 15, type: 'days' },
+  { id: 'milestone-30', icon: '🏆', title: 'Day 30 Challenge', desc: 'Cross the 50% challenge mark (30 Days)', unlocked: false, rarity: 'EPIC', points: 500, target: 30, type: 'days' },
+  { id: 'milestone-45', icon: '💎', title: 'Day 45 Challenge', desc: 'Cross the 75% challenge milestone (45 Days)', unlocked: false, rarity: 'EPIC', points: 750, target: 45, type: 'days' },
+  { id: 'mastery-60', icon: '👑', title: 'Day 60 Challenge', desc: 'Complete all 60 daily challenges', unlocked: false, rarity: 'LEGENDARY', points: 1000, target: 60, type: 'days' },
+  { id: 'streak-7', icon: '🔥', title: '7 Day Streak', desc: 'Maintain 7 consecutive build days', unlocked: true, rarity: 'RARE', points: 150, target: 7, type: 'streak' },
+  { id: 'builds-10', icon: '🏗️', title: '10 Builds Milestone', desc: 'Complete 10 full daily projects', unlocked: true, rarity: 'UNCOMMON', points: 100, target: 10, type: 'days' },
+  { id: 'posts-10', icon: '📢', title: '10 Public Posts', desc: 'Share 10 proof posts on LinkedIn', unlocked: true, rarity: 'RARE', points: 200, target: 10, type: 'posts' },
+  { id: 'github-builder', icon: '💻', title: 'GitHub Builder', desc: 'Push 40+ commits to public repos', unlocked: false, rarity: 'EPIC', points: 300, target: 40, type: 'github' }
 ];
 
 export const CHALLENGES = Array.from({ length: 60 }, (_, i) => {

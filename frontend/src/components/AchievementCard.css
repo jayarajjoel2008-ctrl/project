@@ -1,11 +1,11 @@
-.abtalks-cyber-achievements-container {
+.abtalks-reference-achievements-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
 
-.cyber-achievements-header {
+.achievements-reference-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,45 +13,37 @@
   gap: 10px;
 }
 
-.cyber-header-left {
+.header-title-box {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.cyber-trophy-orb {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(108, 92, 231, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%);
+.header-shield-icon {
+  font-size: 1.4rem;
   color: var(--accent-cyan);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: 0 0 15px var(--accent-violet-glow);
 }
 
-.cyber-header-left h3 {
+.header-title-box h3 {
   font-family: 'Syne', sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--text-title);
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
 }
 
-.cyber-subtext {
+.header-subtext {
   font-size: 0.76rem;
   color: var(--text-muted);
   display: block;
 }
 
-.cyber-badge-counter {
+.header-unlocked-badge {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.78rem;
   font-weight: 800;
   color: #f59e0b;
-  background: rgba(245, 158, 11, 0.12);
+  background: rgba(245, 158, 11, 0.14);
   border: 1px solid rgba(245, 158, 11, 0.35);
   padding: 6px 14px;
   border-radius: 20px;
@@ -60,272 +52,181 @@
   gap: 6px;
 }
 
-.gold-award-icon {
-  color: #f59e0b;
-  font-size: 0.88rem;
-}
-
-/* CYBER BADGE GRID SCROLL */
-.cyber-badge-grid-scroll {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding: 10px 4px 16px 4px;
-  -webkit-overflow-scrolling: touch;
-  perspective: 1000px;
-}
-
-.cyber-badge-card {
-  position: relative;
-  width: 145px;
-  min-width: 145px;
-  height: 185px;
-  border-radius: 24px;
-  cursor: pointer;
-  perspective: 1000px;
-}
-
-/* ROTATING NEON LASER BORDER */
-.cyber-laser-spinner {
-  position: absolute;
-  inset: -2px;
-  border-radius: 26px;
-  background: conic-gradient(from 0deg, var(--accent-violet), var(--accent-cyan), #f59e0b, var(--accent-violet));
-  animation: rotateLaser 4s linear infinite;
-  z-index: 0;
-}
-
-@keyframes rotateLaser {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.cyber-badge-inner {
-  position: relative;
+/* 2-COLUMN GRID MATCHING REFERENCE IMAGE */
+.achievements-reference-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
   width: 100%;
-  height: 100%;
-  border-radius: 24px;
-  background: var(--bg-card);
-  z-index: 1;
-  transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: var(--shadow-card);
 }
 
-.cyber-badge-card.flipped .cyber-badge-inner {
-  transform: rotateY(180deg);
+@media (max-width: 360px) {
+  .achievements-reference-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* FRONT & BACK CARD FACES */
-.cyber-badge-front, .cyber-badge-back {
-  position: absolute;
-  inset: 0;
+.reference-achievement-card {
+  position: relative;
+  background: linear-gradient(180deg, rgba(30, 58, 138, 0.45) 0%, rgba(46, 16, 101, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
-  padding: 14px 10px;
+  padding: 20px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   text-align: center;
-  backface-visibility: hidden;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
 
-.cyber-badge-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, var(--bg-card-hover) 0%, var(--bg-card) 100%);
-  border-color: var(--accent-violet);
-  padding: 14px 10px;
+.reference-achievement-card:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(245, 158, 11, 0.2);
 }
 
-.badge-corner-tag {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+.reference-achievement-card.locked {
+  opacity: 0.75;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 41, 59, 0.6) 100%);
 }
 
-.cyber-rarity-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 10px;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-.cyber-rarity-pill.legendary { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
-.cyber-rarity-pill.epic { background: rgba(168, 85, 247, 0.2); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.4); }
-.cyber-rarity-pill.rare { background: rgba(6, 182, 212, 0.2); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4); }
-.cyber-rarity-pill.uncommon { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
-.cyber-rarity-pill.locked-pill { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
-
-/* CYBER HEXAGON TROPHY ORB */
-.cyber-hexagon-frame {
+/* CIRCULAR ARC RING FRAME (REFERENCE DESIGN) */
+.arc-ring-container {
   position: relative;
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(108, 92, 231, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
-  border: 1px solid rgba(108, 92, 231, 0.4);
+  width: 110px;
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
-  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-  margin: 2px 0;
+  margin-bottom: 4px;
 }
 
-.hexagon-glow-aura {
+.arc-ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.arc-bg-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.15);
+}
+
+.arc-progress-circle {
+  fill: none;
+  stroke: #64748b;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.arc-progress-circle.unlocked {
+  stroke: url(#goldGrad);
+  stroke: #f59e0b;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+}
+
+.arc-badge-center-orb {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.85);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-emoji-icon {
+  font-size: 2.2rem;
+}
+
+.reference-achievement-card.locked .badge-emoji-icon {
+  filter: grayscale(1) opacity(0.4);
+}
+
+.badge-lock-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(108, 92, 231, 0.3);
-  filter: blur(10px);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.4rem;
 }
 
-.cyber-badge-emoji {
-  font-size: 1.8rem;
-  z-index: 1;
-}
-
-.cyber-badge-card.locked .cyber-badge-emoji {
-  filter: grayscale(1) opacity(0.5);
-}
-
-.cyber-badge-title {
-  font-size: 0.78rem;
+.ref-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.92rem;
   font-weight: 800;
   color: var(--text-title);
   line-height: 1.2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-.unlocked-card-actions-row {
+.ref-card-progress-ratio {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-body);
+}
+
+/* ORANGE PTS PILL (MATCHING REFERENCE DESIGN) */
+.ref-card-pts-pill {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #f59e0b;
+  letter-spacing: 0.03em;
+  margin: 2px 0;
+}
+
+/* BOTTOM CLAIM / DOWNLOAD BUTTONS */
+.btn-ref-action {
+  width: 100%;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 10px 14px;
+  min-height: 42px;
+  border: none;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
   justify-content: center;
-  width: 100%;
+  gap: 6px;
+  transition: all 0.2s ease;
 }
 
-.btn-claim-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 800;
+.btn-ref-action.locked {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-ref-action.claim {
   background: linear-gradient(135deg, #f59e0b 0%, var(--accent-violet) 100%);
   color: #ffffff;
-  padding: 3px 8px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
-  min-height: 24px;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
-.btn-download-direct-pill {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
-  border: none;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  cursor: pointer;
-  box-shadow: 0 0 10px var(--accent-violet-glow);
-  min-height: 26px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-download-direct-pill:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 16px var(--accent-cyan);
-}
-
-.claimed-status-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  font-weight: 800;
-  color: #10b981;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.cyber-badge-status-locked {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  color: var(--text-muted);
-}
-
-.btn-quick-flip {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
-  font-weight: 800;
-  color: var(--accent-cyan);
-  background: rgba(6, 182, 212, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.3);
-  padding: 2px 8px;
-  border-radius: 10px;
-  min-height: 22px;
-}
-
-/* BACK CARD STYLES */
-.back-rarity-header {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: var(--accent-violet);
-}
-
-.back-desc {
-  font-size: 0.72rem;
-  color: var(--text-body);
-  line-height: 1.3;
-}
-
-.back-xp-reward {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #f59e0b;
-}
-
-.btn-download-back-mini {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  font-weight: 800;
+.btn-ref-action.download {
   background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
   color: #ffffff;
-  padding: 4px 8px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-height: 26px;
+  box-shadow: 0 0 20px var(--accent-violet-glow);
 }
 
-.btn-flip-back {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem;
-  font-weight: 800;
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
-  color: var(--text-title);
-  padding: 3px 8px;
-  border-radius: 10px;
-  min-height: 22px;
-}
-
-/* CYBER MODAL SHOWCASE WITH DOWNLOAD */
-.cyber-modal-overlay {
+/* DETAIL MODAL */
+.ref-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
   z-index: 3500;
   display: flex;
   align-items: center;
@@ -333,11 +234,11 @@
   padding: 20px;
 }
 
-.cyber-trophy-modal {
+.ref-modal-card {
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--accent-violet);
-  border-radius: 32px;
+  border-radius: 28px;
   padding: 32px 24px;
   max-width: 380px;
   width: 100%;
@@ -345,11 +246,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  box-shadow: 0 0 60px var(--accent-violet-glow);
+  gap: 14px;
+  box-shadow: 0 0 50px var(--accent-violet-glow);
 }
 
-.cyber-modal-close {
+.ref-modal-close {
   position: absolute;
   top: 16px;
   right: 16px;
@@ -367,103 +268,63 @@
   min-height: 34px;
 }
 
-.cyber-modal-header-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--accent-cyan);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  letter-spacing: 0.04em;
-}
-
-.cyber-modal-hero-hexagon {
+.ref-modal-hero-orb {
   position: relative;
   width: 90px;
   height: 90px;
+  border-radius: 50%;
   background: linear-gradient(135deg, rgba(108, 92, 231, 0.3) 0%, rgba(245, 158, 11, 0.3) 100%);
-  border: 2px solid var(--accent-violet);
-  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  border: 3px solid #f59e0b;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 35px var(--accent-violet-glow);
 }
 
-.hero-emoji-icon {
+.hero-emoji {
   font-size: 3.5rem;
 }
 
-.cyber-modal-rarity-row {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  flex-wrap: wrap;
+.modal-lock-badge {
+  position: absolute;
+  color: #ffffff;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8px;
+  border-radius: 50%;
 }
 
-.cyber-xp-pill {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.7rem;
-  font-weight: 800;
-  background: rgba(245, 158, 11, 0.2);
+.ref-modal-pts-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
   color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  padding: 4px 10px;
-  border-radius: 12px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 4px 14px;
+  border-radius: 20px;
 }
 
-.cyber-modal-title {
+.ref-modal-title {
   font-family: 'Syne', sans-serif;
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--text-title);
 }
 
-.cyber-modal-desc {
+.ref-modal-desc {
   font-size: 0.88rem;
   color: var(--text-body);
   line-height: 1.5;
 }
 
-.cyber-unlocked-status-banner {
-  width: 100%;
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  color: #10b981;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 10px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.cyber-locked-status-banner {
-  width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border-card);
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  padding: 10px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.modal-download-actions {
+.ref-modal-actions {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.btn-claim-primary {
+.btn-modal-claim-primary {
   width: 100%;
   background: linear-gradient(135deg, #f59e0b 0%, var(--accent-violet) 100%);
   color: #ffffff;
@@ -475,7 +336,7 @@
   min-height: 46px;
 }
 
-.btn-cyber-download {
+.btn-modal-download-primary {
   width: 100%;
   background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
   color: #ffffff;
@@ -489,4 +350,18 @@
   justify-content: center;
   gap: 8px;
   min-height: 46px;
+}
+
+.ref-modal-locked-banner {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  padding: 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
