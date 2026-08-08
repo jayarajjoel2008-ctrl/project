@@ -6,12 +6,13 @@ import Navbar from '../components/Navbar';
 import BottomNav from '../components/BottomNav';
 import StreakCard from '../components/StreakCard';
 import ChallengeCard from '../components/ChallengeCard';
+import NextUnlockTimer from '../components/NextUnlockTimer';
 import ProofVault from '../components/ProofVault';
 import StreakRescue from '../components/StreakRescue';
 import ConsistencyScore from '../components/ConsistencyScore';
 import AchievementCard from '../components/AchievementCard';
 
-import { getUserProgress, rescueStreak, resetProgressToFirstDay } from '../utils/storage';
+import { getUserProgress, rescueStreak, resetProgressToFirstDay, getMaxUnlockedDay } from '../utils/storage';
 import './Dashboard.css';
 
 const Dashboard = ({ theme, toggleTheme }) => {
@@ -32,6 +33,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
   }
 
   const { profile, challenges, achievements } = data;
+  const maxUnlockedDay = getMaxUnlockedDay();
   const currentDayNum = profile.currentDay || 12;
   const todayChallenge = challenges.find(c => c.day === currentDayNum) || challenges[11];
 
@@ -108,6 +110,9 @@ const Dashboard = ({ theme, toggleTheme }) => {
         </div>
         <ChallengeCard challenge={todayChallenge} />
 
+        {/* LIVE COUNTDOWN TIMER FOR NEXT DAY 12:00 AM UNLOCK */}
+        <NextUnlockTimer nextDayNum={maxUnlockedDay + 1} />
+
         <div className="abtalks-dashboard-card proof-status-card">
           <h4>TODAY'S PROOF STATUS</h4>
           <div className="proof-status-rows">
@@ -144,7 +149,8 @@ const Dashboard = ({ theme, toggleTheme }) => {
 
         <AchievementCard achievements={achievements} />
 
-        <ProofVault challenges={challenges} limit={12} showHeader={true} />
+        {/* 60-DAY PROOF OF WORK VAULT WITH PROOF LINKS & LEVEL FILTERS */}
+        <ProofVault challenges={challenges} limit={60} showHeader={true} />
 
         <div className="abtalks-dashboard-card story-summary-card">
           <div className="story-summary-text">

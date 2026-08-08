@@ -55,6 +55,66 @@
   border-radius: 4px;
 }
 
+.locked-day-container-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+  margin-top: 10px;
+}
+
+.locked-header-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.locked-day-container-card h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.locked-day-container-card p {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+.btn-back-dashboard-primary {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  color: var(--text-title);
+  font-weight: 800;
+  font-size: 0.92rem;
+  padding: 12px 24px;
+  border-radius: 25px;
+  min-height: 46px;
+  margin-top: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-back-dashboard-primary:hover {
+  border-color: var(--accent-violet);
+  background: rgba(108, 92, 231, 0.15);
+}
+
 .challenge-header-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);

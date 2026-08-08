@@ -1,0 +1,110 @@
+.abtalks-unlock-timer-card {
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.14) 0%, rgba(6, 182, 212, 0.08) 100%);
+  border: 1px solid rgba(108, 92, 231, 0.35);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: rgba(108, 92, 231, 0.25);
+  color: var(--accent-violet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.timer-title-group h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.timer-subtext {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.timer-display-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 14px 20px;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.unit-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-violet);
+  line-height: 1;
+}
+
+.unit-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.time-colon {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent-violet);
+  margin-bottom: 12px;
+  animation: pulseColon 1.5s infinite ease-in-out;
+}
+
+@keyframes pulseColon {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.timer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-body);
+}
+
+.clock-pulse-icon {
+  color: var(--accent-cyan);
+  font-size: 0.85rem;
+}
