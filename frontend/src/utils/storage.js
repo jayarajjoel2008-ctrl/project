@@ -9,6 +9,10 @@ export function getUserProgress() {
     if (raw) {
       const data = JSON.parse(raw);
       const evaluated = evaluateAchievements(data);
+      if (!evaluated.profile.name || evaluated.profile.name === 'Joel') {
+        evaluated.profile.name = 'Arvind';
+        saveUserProgress(evaluated);
+      }
       if (!data.profile.startDate) {
         const defaultStart = new Date();
         defaultStart.setDate(defaultStart.getDate() - 11);

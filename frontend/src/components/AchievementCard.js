@@ -9,7 +9,7 @@ const AchievementCard = ({ achievements = [] }) => {
   const [selectedAchievement, setSelectedAchievement] = useState(null);
   const [flippedCards, setFlippedCards] = useState({});
   const [achievementsList, setAchievementsList] = useState(achievements);
-  const [userName, setUserName] = useState('Joel');
+  const [userName, setUserName] = useState('Arvind');
 
   useEffect(() => {
     const current = getUserProgress();

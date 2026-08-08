@@ -1,7 +1,7 @@
 // ABTALKS 2.0 Mock Data Layer
 
 export const INITIAL_USER_PROFILE = {
-  name: "Joel",
+  name: "Arvind",
   role: "60-DAY BUILDER",
   avatar: "⚡",
   track: "Full Stack Development",
@@ -52,9 +52,9 @@ export const CHALLENGES = Array.from({ length: 60 }, (_, i) => {
         { id: 4, text: "Display humidity & wind speed metrics", completed: false },
         { id: 5, text: "Add responsive UI with dark mode styling", completed: false }
       ],
-      githubRepoUrl: "https://github.com/joel/ai-weather-assistant",
-      githubCommitUrl: "https://github.com/joel/ai-weather-assistant/commit/8a72b",
-      linkedinUrl: "https://linkedin.com/posts/joel-day12-weather-ai-build",
+      githubRepoUrl: "https://github.com/arvind/ai-weather-assistant",
+      githubCommitUrl: "https://github.com/arvind/ai-weather-assistant/commit/8a72b",
+      linkedinUrl: "https://linkedin.com/posts/arvind-day12-weather-ai-build",
       submitted: false
     };
   }
@@ -71,9 +71,9 @@ export const CHALLENGES = Array.from({ length: 60 }, (_, i) => {
       { id: 2, text: "Implement core business logic & functions", completed: dayNum < 12 },
       { id: 3, text: "Add error handling and UI polish", completed: dayNum < 12 }
     ],
-    githubRepoUrl: dayNum < 12 ? `https://github.com/joel/day-${dayNum}-project` : "",
-    githubCommitUrl: dayNum < 12 ? `https://github.com/joel/day-${dayNum}-project/commit/abc` : "",
-    linkedinUrl: dayNum < 12 ? `https://linkedin.com/posts/joel-day-${dayNum}-build` : "",
+    githubRepoUrl: dayNum < 12 ? `https://github.com/arvind/day-${dayNum}-project` : "",
+    githubCommitUrl: dayNum < 12 ? `https://github.com/arvind/day-${dayNum}-project/commit/abc` : "",
+    linkedinUrl: dayNum < 12 ? `https://linkedin.com/posts/arvind-day-${dayNum}-build` : "",
     submitted: dayNum < 12
   };
 });
