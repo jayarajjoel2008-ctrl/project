@@ -1,0 +1,48 @@
+{
+  "user": {
+    "name": "Ananya Sharma",
+    "avatar": "https://i.pravatar.cc/150?img=5",
+    "college": "IIT Bombay"
+  },
+  "track": {
+    "id": "web-dev",
+    "name": "Full Stack Web Development",
+    "totalDays": 60
+  },
+  "dashboard": {
+    "streak": 12,
+    "progress": {
+      "completed": 12,
+      "total": 60,
+      "percentage": 20
+    },
+    "todayTask": {
+      "day": 12,
+      "title": "Build a REST API with Express",
+      "shortDesc": "Create GET and POST endpoints for a todo list."
+    },
+    "achievements": [
+      { "icon": "🔥", "name": "Week 1 Warrior", "unlocked": true },
+      { "icon": "⭐", "name": "First Commit", "unlocked": true },
+      { "icon": "🧘", "name": "Meditation Mode (Missed a day)", "unlocked": false }
+    ],
+    "hasSubmittedToday": false,
+    "missedDay": false
+  },
+  "days": {
+    "12": {
+      "day": 12,
+      "title": "Build a REST API with Express",
+      "description": "Build a simple REST API that handles GET and POST requests for a task manager. Store tasks in an in-memory array. No database required yet.",
+      "resources": [
+        { "label": "Express Docs", "url": "https://expressjs.com/" },
+        { "label": "GitHub REST API Guide", "url": "https://docs.github.com/en/rest" }
+      ],
+      "submission": {
+        "github": null,
+        "linkedin": null,
+        "submittedAt": null
+      }
+    }
+  }
+}

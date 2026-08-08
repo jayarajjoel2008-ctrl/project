@@ -1,0 +1,15 @@
+{
+  "name": "abtalks-root",
+  "version": "1.0.0",
+  "description": "ABTalks Workspace Root",
+  "scripts": {
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd ABTalks-Backend && node server.js",
+    "frontend": "cd ABTALKS-REDESIGN/abtalks/frontend && npm start",
+    "redesign-backend": "cd ABTALKS-REDESIGN/abtalks/backend && node server.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

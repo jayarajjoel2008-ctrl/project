@@ -1,0 +1,143 @@
+{
+  "users": [
+    {
+      "id": "user_1",
+      "name": "Priya Sharma",
+      "email": "priya@example.com",
+      "college": "IIT Bombay",
+      "track": "Full Stack Development",
+      "currentStreak": 1,
+      "longestStreak": 15,
+      "totalDaysCompleted": 14,
+      "totalDays": 60,
+      "startDate": "2024-01-15",
+      "lastSubmitted": "2026-08-08",
+      "submissions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "achievements": [
+        {
+          "id": "first_week",
+          "name": "First Week Complete",
+          "description": "Completed 7 days of coding",
+          "icon": "🌟",
+          "unlockedAt": "2024-01-22"
+        },
+        {
+          "id": "double_digit",
+          "name": "Double Digits",
+          "description": "Reached 10+ day streak",
+          "icon": "🔥",
+          "unlockedAt": "2024-01-25"
+        },
+        {
+          "id": "starter",
+          "name": "Starter",
+          "description": "Completed your first daily challenge",
+          "icon": "🚀",
+          "unlockedAt": "2026-08-08"
+        }
+      ],
+      "submissionHistory": [
+        {
+          "day": 13,
+          "githubUrl": "https://github.com/test/day13",
+          "linkedinUrl": "https://linkedin.com/posts/test_day13",
+          "submittedAt": "2026-08-08T13:03:47.886Z"
+        },
+        {
+          "day": 14,
+          "githubUrl": "https://github.com/test/day14",
+          "linkedinUrl": "https://linkedin.com/posts/test_day14",
+          "submittedAt": "2026-08-08T13:04:53.236Z"
+        }
+      ]
+    },
+    {
+      "id": "user_2",
+      "name": "Rahul Verma",
+      "email": "rahul@example.com",
+      "college": "NIT Trichy",
+      "track": "Data Science",
+      "currentStreak": 0,
+      "longestStreak": 8,
+      "totalDaysCompleted": 8,
+      "totalDays": 60,
+      "startDate": "2024-01-10",
+      "lastSubmitted": "2024-01-18",
+      "submissions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "achievements": [
+        {
+          "id": "starter",
+          "name": "Starter",
+          "description": "First submission completed",
+          "icon": "🚀",
+          "unlockedAt": "2024-01-10"
+        }
+      ]
+    },
+    {
+      "id": "user_1786192633958",
+      "name": "Test Student",
+      "email": "test_1786192633881@example.com",
+      "password": "$2a$10$ry1TPOBFpds3V7Qxtey6n.uNjwDZLR7ncZbFKtD0BO9VeHIi4ELAG",
+      "college": "IIT Delhi",
+      "track": "Full Stack Development",
+      "currentStreak": 1,
+      "longestStreak": 1,
+      "totalDaysCompleted": 1,
+      "totalDays": 60,
+      "startDate": "2026-08-08",
+      "lastSubmitted": "2026-08-08",
+      "submissions": [
+        1
+      ],
+      "achievements": [
+        {
+          "id": "welcome",
+          "name": "Joined Challenge",
+          "description": "Welcome to the ABTalks 60-Day Challenge!",
+          "icon": "🚀",
+          "unlockedAt": "2026-08-08"
+        },
+        {
+          "id": "starter",
+          "name": "Starter",
+          "description": "Completed your first daily challenge",
+          "icon": "🚀",
+          "unlockedAt": "2026-08-08"
+        }
+      ],
+      "submissionHistory": [
+        {
+          "day": 1,
+          "githubUrl": "https://github.com/teststudent/day1",
+          "linkedinUrl": "https://linkedin.com/posts/teststudent_day1",
+          "submittedAt": "2026-08-08T12:37:14.026Z"
+        }
+      ]
+    }
+  ]
+}

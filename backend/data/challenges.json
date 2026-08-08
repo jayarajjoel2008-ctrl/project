@@ -1,0 +1,335 @@
+{
+  "challenges": {
+    "Full Stack Development": {
+      "days": [
+        {
+          "day": 1,
+          "title": "Build Your Personal Portfolio Website",
+          "description": "Create a responsive personal portfolio website using HTML, CSS, and JavaScript. Include sections for About, Projects, Skills, and Contact.",
+          "requirements": [
+            "Use semantic HTML5 elements",
+            "Implement CSS Flexbox/Grid for layout",
+            "Add at least one interactive element with JavaScript",
+            "Make it responsive for mobile and desktop",
+            "Deploy on GitHub Pages or Netlify"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Learn/HTML",
+            "https://css-tricks.com/snippets/css/a-guide-to-flexbox/",
+            "https://www.freecodecamp.org/news/how-to-build-a-developer-portfolio-website/"
+          ],
+          "difficulty": "Beginner",
+          "estimatedTime": "2-3 hours"
+        },
+        {
+          "day": 2,
+          "title": "JavaScript Calculator App",
+          "description": "Build a fully functional calculator with basic arithmetic operations. Focus on clean UI and error handling.",
+          "requirements": [
+            "Support addition, subtraction, multiplication, division",
+            "Handle decimal numbers",
+            "Implement keyboard support",
+            "Show error messages for invalid operations",
+            "Add a history feature showing previous calculations"
+          ],
+          "resources": [
+            "https://www.w3schools.com/js/js_math.asp",
+            "https://dev.to/joyshaheb/how-to-build-a-calculator-app-with-javascript-29g1"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "2-4 hours"
+        },
+        {
+          "day": 3,
+          "title": "To-Do List App with Local Storage",
+          "description": "Create a to-do list application that saves tasks in the browser's local storage. Include add, delete, and mark complete features.",
+          "requirements": [
+            "Add new tasks with a form",
+            "Mark tasks as complete/incomplete",
+            "Delete individual tasks",
+            "Persist data using localStorage",
+            "Filter tasks by status (All, Active, Completed)",
+            "Show task count"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+            "https://www.freecodecamp.org/news/how-to-build-a-todo-app-using-javascript/"
+          ],
+          "difficulty": "Beginner",
+          "estimatedTime": "2-3 hours"
+        },
+        {
+          "day": 4,
+          "title": "Weather App using API",
+          "description": "Build a weather application that fetches real-time weather data from an API. Show current conditions and a 5-day forecast.",
+          "requirements": [
+            "Use OpenWeatherMap or similar API",
+            "Search for weather by city name",
+            "Display temperature, humidity, wind speed",
+            "Show weather icons",
+            "Handle API errors gracefully",
+            "Add a loading state"
+          ],
+          "resources": [
+            "https://openweathermap.org/api",
+            "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "3-4 hours"
+        },
+        {
+          "day": 5,
+          "title": "Memory Card Game",
+          "description": "Create a memory card matching game with a timer and move counter. The player needs to find matching pairs of cards.",
+          "requirements": [
+            "Create a grid of cards (4x4 or 6x6)",
+            "Implement flip animation",
+            "Track moves and time",
+            "Show congratulations on completion",
+            "Add a restart button",
+            "Make it responsive"
+          ],
+          "resources": [
+            "https://www.freecodecamp.org/news/build-a-memory-card-game-in-javascript/",
+            "https://www.youtube.com/watch?v=ZniVgo8U7ek"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "3-5 hours"
+        },
+        {
+          "day": 6,
+          "title": "GitHub Repository Finder",
+          "description": "Build a tool to search and explore GitHub repositories. Display repository details, stars, forks, and issues.",
+          "requirements": [
+            "Search repositories by name",
+            "Display repository list with details",
+            "Show repository stats (stars, forks, issues)",
+            "Implement pagination",
+            "Link to the actual repository",
+            "Handle rate limiting"
+          ],
+          "resources": [
+            "https://docs.github.com/en/rest",
+            "https://developer.github.com/v3/"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "4-6 hours"
+        },
+        {
+          "day": 7,
+          "title": "Pomodoro Timer",
+          "description": "Build a Pomodoro productivity timer with work and break intervals. Include customizable durations and statistics tracking.",
+          "requirements": [
+            "Implement work and break timers",
+            "Add start/pause/reset controls",
+            "Show visual and audio notifications",
+            "Track completed sessions",
+            "Allow customization of durations",
+            "Store settings in localStorage"
+          ],
+          "resources": [
+            "https://en.wikipedia.org/wiki/Pomodoro_Technique",
+            "https://www.freecodecamp.org/news/how-to-build-a-pomodoro-timer/"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "3-4 hours"
+        },
+        {
+          "day": 8,
+          "title": "Responsive Navigation System",
+          "description": "Build a fully responsive navigation system with dropdown menus, hamburger menu, and smooth animations.",
+          "requirements": [
+            "Create desktop navigation with dropdowns",
+            "Implement hamburger menu for mobile",
+            "Add smooth transitions and animations",
+            "Make it accessible (ARIA labels)",
+            "Support multiple navigation levels",
+            "Highlight active page"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout",
+            "https://www.w3schools.com/howto/howto_js_responsive_navbar_dropdown.asp"
+          ],
+          "difficulty": "Beginner",
+          "estimatedTime": "2-3 hours"
+        },
+        {
+          "day": 9,
+          "title": "Form Validation Library",
+          "description": "Create a form validation library with support for various validation rules and real-time feedback.",
+          "requirements": [
+            "Support required, email, min/max length validation",
+            "Show real-time validation feedback",
+            "Custom error messages",
+            "Support multiple form fields",
+            "Implement custom validation rules",
+            "Show success/error states"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Learn/Forms/Form_validation",
+            "https://www.freecodecamp.org/news/how-to-build-a-form-with-form-validation/"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "3-4 hours"
+        },
+        {
+          "day": 10,
+          "title": "Interactive Quiz Game",
+          "description": "Build a quiz game with multiple choice questions, scoring, and leaderboard. Include different categories and difficulty levels.",
+          "requirements": [
+            "Display questions with multiple choice answers",
+            "Track score and show results",
+            "Implement timer for each question",
+            "Add different categories",
+            "Show correct/incorrect feedback",
+            "Save high scores locally"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage",
+            "https://opentdb.com/api_config.php"
+          ],
+          "difficulty": "Intermediate",
+          "estimatedTime": "3-5 hours"
+        },
+        {
+          "day": 11,
+          "title": "Image Gallery with Infinite Scroll",
+          "description": "Create an image gallery with infinite scroll, search, and filter functionality. Use Unsplash or Pexels API.",
+          "requirements": [
+            "Fetch images from an API",
+            "Implement infinite scroll loading",
+            "Add search functionality",
+            "Filter by category or orientation",
+            "Show image details on click",
+            "Responsive grid layout"
+          ],
+          "resources": [
+            "https://unsplash.com/documentation",
+            "https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "4-6 hours"
+        },
+        {
+          "day": 12,
+          "title": "Real-time Chat Application",
+          "description": "Build a simple real-time chat application with room support and user authentication simulation.",
+          "requirements": [
+            "Create chat rooms",
+            "Send and receive messages in real-time",
+            "Display user list in room",
+            "Show typing indicators",
+            "Support emoji reactions",
+            "Message history"
+          ],
+          "resources": [
+            "https://socket.io/docs/v4/",
+            "https://developer.mozilla.org/en-US/docs/Web/API/WebSocket"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "5-7 hours"
+        },
+        {
+          "day": 13,
+          "title": "Data Visualization Dashboard",
+          "description": "Create a dashboard with interactive charts and graphs using D3.js or Chart.js. Visualize sample dataset with multiple views.",
+          "requirements": [
+            "Display at least 3 chart types",
+            "Add interactivity (hover, click)",
+            "Implement date range filter",
+            "Show key metrics (KPIs)",
+            "Responsive design",
+            "Export chart as image"
+          ],
+          "resources": [
+            "https://www.chartjs.org/docs/latest/",
+            "https://d3js.org/",
+            "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "5-8 hours"
+        },
+        {
+          "day": 14,
+          "title": "Task Management App",
+          "description": "Build a complete task management application with drag-and-drop functionality and project organization.",
+          "requirements": [
+            "Create projects and tasks",
+            "Drag and drop tasks between columns",
+            "Set due dates and priorities",
+            "Add task comments",
+            "Activity log",
+            "Search and filter tasks"
+          ],
+          "resources": [
+            "https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API",
+            "https://medium.com/how-to-react/create-a-kanban-board-using-react-3f9232b63dbb"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "6-8 hours"
+        },
+        {
+          "day": 15,
+          "title": "Weather Dashboard with Maps",
+          "description": "Build an advanced weather dashboard with interactive maps showing weather patterns and forecasts.",
+          "requirements": [
+            "Show weather map with heat layers",
+            "Hourly and daily forecasts",
+            "Multiple locations support",
+            "Save favorite locations",
+            "Weather alerts",
+            "Air quality index"
+          ],
+          "resources": [
+            "https://leafletjs.com/",
+            "https://openweathermap.org/api/weather-map-2",
+            "https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API"
+          ],
+          "difficulty": "Advanced",
+          "estimatedTime": "6-8 hours"
+        }
+      ]
+    },
+    "Data Science": {
+      "days": [
+        {
+          "day": 1,
+          "title": "Python Data Structures Mastery",
+          "description": "Master Python data structures through practical coding exercises. Implement lists, dictionaries, sets, and tuples with real-world examples.",
+          "requirements": [
+            "Implement list comprehensions",
+            "Use dictionaries for data grouping",
+            "Work with sets for unique operations",
+            "Practice tuple unpacking",
+            "Solve 5 coding problems using these structures"
+          ],
+          "resources": [
+            "https://docs.python.org/3/tutorial/datastructures.html",
+            "https://realpython.com/python-data-structures/"
+          ],
+          "difficulty": "Beginner",
+          "estimatedTime": "2-3 hours"
+        },
+        {
+          "day": 2,
+          "title": "Data Cleaning with Pandas",
+          "description": "Learn to clean and preprocess messy datasets using pandas. Handle missing values, outliers, and data type conversions.",
+          "requirements": [
+            "Load CSV and Excel files",
+            "Handle missing values (drop, fill)",
+            "Remove duplicates",
+            "Convert data types",
+            "Rename and create new columns",
+            "Export cleaned data"
+          ],
+          "resources": [
+            "https://pandas.pydata.org/docs/user_guide/missing_data.html",
+            "https://www.kaggle.com/learn/data-cleaning"
+          ],
+          "difficulty": "Beginner",
+          "estimatedTime": "2-4 hours"
+        }
+      ]
+    }
+  }
+}
