@@ -10,15 +10,21 @@ export function getUserProgress() {
       const data = JSON.parse(raw);
       if (data?.profile && data.profile.name !== 'Arvind') {
         data.profile.name = 'Arvind';
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       }
+      
+      // Calculate actual completed count from submitted challenges (e.g. 11)
+      if (data.challenges && Array.isArray(data.challenges)) {
+        const actualSubmitted = data.challenges.filter(c => c.submitted).length;
+        data.profile.completedDaysCount = actualSubmitted;
+      }
+
       const evaluated = evaluateAchievements(data);
       if (!data.profile.startDate) {
         const defaultStart = new Date();
         defaultStart.setDate(defaultStart.getDate() - 11);
         evaluated.profile.startDate = defaultStart.toISOString();
-        saveUserProgress(evaluated);
       }
+      saveUserProgress(evaluated);
       return evaluated;
     }
   } catch (err) {

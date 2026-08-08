@@ -8,9 +8,9 @@ export const INITIAL_USER_PROFILE = {
   college: "IIT Madras / Tech Student",
   currentDay: 12,
   totalDays: 60,
-  completedDaysCount: 47,
-  githubProofsCount: 44,
-  linkedinPostsCount: 42,
+  completedDaysCount: 11,
+  githubProofsCount: 11,
+  linkedinPostsCount: 10,
   currentStreak: 11,
   bestStreak: 18,
   missedDay: 11, // Day 11 missed for Streak Rescue feature demo
