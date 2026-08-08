@@ -32,10 +32,10 @@ const AchievementCard = ({ achievements = [] }) => {
     if (achievement.unlocked) {
       try {
         confetti({ 
-          particleCount: 90, 
-          spread: 70, 
+          particleCount: 100, 
+          spread: 80, 
           origin: { y: 0.6 },
-          colors: ['#6c5ce7', '#06b6d4', '#f59e0b', '#10b981', '#a855f7']
+          colors: ['#f59e0b', '#6c5ce7', '#06b6d4', '#10b981', '#a855f7']
         });
       } catch (e) {
         console.log('Achievement celebration');
@@ -48,7 +48,6 @@ const AchievementCard = ({ achievements = [] }) => {
     const updated = claimAchievement(achievement.id);
     setAchievementsList(updated.achievements);
 
-    // Update current selected item
     const updatedItem = updated.achievements.find(a => a.id === achievement.id);
     setSelectedAchievement(updatedItem);
 
@@ -56,9 +55,11 @@ const AchievementCard = ({ achievements = [] }) => {
   };
 
   /**
-   * Generates and downloads high-resolution PNG Badge Image in realtime using HTML5 Canvas
+   * Generates and downloads ultra-stylish, high-resolution PNG Badge Certificate in realtime
    */
-  const downloadBadgeImage = (achievement) => {
+  const downloadBadgeImage = (achievement, e) => {
+    if (e) e.stopPropagation();
+
     const canvas = document.createElement('canvas');
     canvas.width = 800;
     canvas.height = 800;
@@ -67,93 +68,115 @@ const AchievementCard = ({ achievements = [] }) => {
     const mainColor = achievement.rarity === 'LEGENDARY' ? '#f59e0b' : achievement.rarity === 'EPIC' ? '#a855f7' : '#06b6d4';
 
     // 1. Cyber Dark Metallic Background Gradient
-    const bgGrad = ctx.createRadialGradient(400, 400, 50, 400, 400, 560);
-    bgGrad.addColorStop(0, '#151728');
-    bgGrad.addColorStop(0.6, '#0c0d16');
-    bgGrad.addColorStop(1, '#06070a');
+    const bgGrad = ctx.createRadialGradient(400, 400, 60, 400, 400, 560);
+    bgGrad.addColorStop(0, '#16172b');
+    bgGrad.addColorStop(0.5, '#0b0c15');
+    bgGrad.addColorStop(1, '#050609');
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, 800, 800);
 
-    // 2. Dual Laser Frame Lines
+    // Subtle Grid Watermark
+    ctx.strokeStyle = 'rgba(108, 92, 231, 0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < 800; x += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, 800);
+      ctx.stroke();
+    }
+    for (let y = 0; y < 800; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(800, y);
+      ctx.stroke();
+    }
+
+    // 2. Outer Bevelled Laser Frame Lines
     ctx.strokeStyle = mainColor;
-    ctx.lineWidth = 10;
-    ctx.strokeRect(36, 36, 728, 728);
+    ctx.lineWidth = 12;
+    ctx.strokeRect(32, 32, 736, 736);
 
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
     ctx.lineWidth = 2;
-    ctx.strokeRect(50, 50, 700, 700);
+    ctx.strokeRect(48, 48, 704, 704);
 
-    // Corner Ornaments
-    const drawCorner = (x, y) => {
+    // Glowing Corner Gems
+    const drawGemCorner = (x, y) => {
       ctx.fillStyle = mainColor;
-      ctx.fillRect(x, y, 20, 20);
+      ctx.fillRect(x - 10, y - 10, 24, 24);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x - 10, y - 10, 24, 24);
     };
-    drawCorner(36, 36);
-    drawCorner(744, 36);
-    drawCorner(36, 744);
-    drawCorner(744, 744);
+    drawGemCorner(32, 32);
+    drawGemCorner(768, 32);
+    drawGemCorner(32, 768);
+    drawGemCorner(768, 768);
 
     // 3. Top Header Brand Tag
     ctx.fillStyle = '#6c5ce7';
     ctx.font = '800 20px "JetBrains Mono", monospace';
     ctx.textAlign = 'center';
-    ctx.fillText('ABTALKS 2.0 • OFFICIAL DIGITAL BUILDER CERTIFICATE', 400, 95);
+    ctx.fillText('🎙️ ABTALKS 2.0 • OFFICIAL BUILDER TROPHY CERTIFICATE', 400, 92);
 
-    // 4. Central Hexagon Shield Orb Emblem
-    ctx.fillStyle = 'rgba(108, 92, 231, 0.16)';
+    // 4. Central Shield Emblem
+    ctx.fillStyle = 'rgba(108, 92, 231, 0.2)';
     ctx.beginPath();
-    ctx.arc(400, 260, 95, 0, Math.PI * 2);
+    ctx.arc(400, 255, 95, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.strokeStyle = mainColor;
-    ctx.lineWidth = 4;
+    ctx.lineWidth = 5;
     ctx.stroke();
 
-    // Inner Ring
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.arc(400, 260, 82, 0, Math.PI * 2);
+    ctx.arc(400, 255, 82, 0, Math.PI * 2);
     ctx.stroke();
 
-    // Emoji / Icon
+    // Emoji Trophy Icon
     ctx.font = '100px sans-serif';
-    ctx.fillText(achievement.icon || '🏆', 400, 295);
+    ctx.fillText(achievement.icon || '🏆', 400, 290);
 
-    // 5. Rarity Tier Chip
+    // 5. Rarity & XP Chip
     ctx.fillStyle = mainColor;
     ctx.font = '800 18px "JetBrains Mono", monospace';
-    ctx.fillText(`[ ${achievement.rarity || 'RARE'} TIER • +${achievement.points || 150} XP ]`, 400, 400);
+    ctx.fillText(`[ ${achievement.rarity || 'RARE'} TIER • +${achievement.points || 150} BUILD XP ]`, 400, 395);
 
     // 6. Achievement Title
     ctx.fillStyle = '#ffffff';
     ctx.font = '800 36px "Syne", sans-serif';
-    ctx.fillText(achievement.title, 400, 455);
+    ctx.fillText(achievement.title, 400, 450);
 
     // 7. Achievement Description
     ctx.fillStyle = '#94a3b8';
     ctx.font = '500 18px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(achievement.desc, 400, 495);
+    ctx.fillText(achievement.desc, 400, 490);
 
     // 8. Awarded To Section
     ctx.fillStyle = '#64748b';
     ctx.font = '700 14px "JetBrains Mono", monospace';
-    ctx.fillText('THIS CERTIFICATE IS OFFICIALLY PRESENTED TO:', 400, 565);
+    ctx.fillText('THIS CERTIFICATE IS OFFICIALLY PRESENTED TO:', 400, 560);
 
-    ctx.fillStyle = '#f8fafc';
-    ctx.font = '900 36px "Syne", sans-serif';
-    ctx.fillText(userName.toUpperCase(), 400, 615);
+    ctx.fillStyle = '#f59e0b';
+    ctx.font = '900 38px "Syne", sans-serif';
+    ctx.fillText(userName.toUpperCase(), 400, 610);
 
     // Verified Stamp
     ctx.fillStyle = '#10b981';
     ctx.font = '800 16px "JetBrains Mono", monospace';
-    ctx.fillText('✓ VERIFIED PUBLIC PROOF OF WORK • 60-DAY FULL-STACK TRACK', 400, 660);
+    ctx.fillText('✓ VERIFIED PUBLIC PROOF OF WORK • 60-DAY FULL-STACK TRACK', 400, 655);
 
-    // Serial & Signature Line
+    // Barcode Simulation & Serial Hash
+    ctx.fillStyle = '#475569';
+    ctx.font = '14px "JetBrains Mono", monospace';
+    ctx.fillText('║▌║█║▌│║▌║▌█║▌│║▌║▌█║▌│║▌', 400, 700);
+
     const serialHash = `CERT-ID: #ABTALKS-2026-${Math.floor(10000 + Math.random() * 90000)}`;
     ctx.fillStyle = '#64748b';
     ctx.font = '13px "JetBrains Mono", monospace';
-    ctx.fillText(`${serialHash} • Issued: ${new Date().toLocaleDateString()}`, 400, 725);
+    ctx.fillText(`${serialHash} • Issued: ${new Date().toLocaleDateString()}`, 400, 730);
 
     // Trigger Instant PNG Download
     const imageURI = canvas.toDataURL('image/png');
@@ -221,16 +244,26 @@ const AchievementCard = ({ achievements = [] }) => {
                   <span className="cyber-badge-title">{item.title}</span>
                   
                   {item.unlocked ? (
-                    item.claimed ? (
-                      <span className="claimed-status-pill"><FaCheckCircle /> CLAIMED</span>
-                    ) : (
+                    <div className="unlocked-card-actions-row">
+                      {item.claimed ? (
+                        <span className="claimed-status-pill"><FaCheckCircle /> CLAIMED</span>
+                      ) : (
+                        <button 
+                          className="btn-claim-pill" 
+                          onClick={(e) => handleClaimBadge(item, e)}
+                        >
+                          Claim 🎁
+                        </button>
+                      )}
+
                       <button 
-                        className="btn-claim-pill" 
-                        onClick={(e) => handleClaimBadge(item, e)}
+                        className="btn-download-direct-pill"
+                        title="Download Badge Image PNG"
+                        onClick={(e) => downloadBadgeImage(item, e)}
                       >
-                        Claim Badge 🎁
+                        <FaDownload />
                       </button>
-                    )
+                    </div>
                   ) : (
                     <span className="cyber-badge-status-locked">LOCKED</span>
                   )}
@@ -255,12 +288,9 @@ const AchievementCard = ({ achievements = [] }) => {
                   {item.unlocked && (
                     <button 
                       className="btn-download-back-mini" 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        downloadBadgeImage(item);
-                      }}
+                      onClick={(e) => downloadBadgeImage(item, e)}
                     >
-                      <FaDownload /> Download
+                      <FaDownload /> Download PNG
                     </button>
                   )}
 
@@ -326,7 +356,7 @@ const AchievementCard = ({ achievements = [] }) => {
                 </div>
               ) : (
                 <div className="cyber-locked-status-banner">
-                  <FaLock /> <span>LOCK STATUS: COMPLETE CHALLENGES TO CLAIM</span>
+                  <FaLock /> <span>LOCK STATUS: COMPLETE CHALLENGES TO UNLOCK</span>
                 </div>
               )}
 
@@ -343,7 +373,7 @@ const AchievementCard = ({ achievements = [] }) => {
 
                   <button 
                     className="btn-cyber-download"
-                    onClick={() => downloadBadgeImage(selectedAchievement)}
+                    onClick={(e) => downloadBadgeImage(selectedAchievement, e)}
                   >
                     <FaDownload /> Download Badge Image (.PNG) 📥
                   </button>
