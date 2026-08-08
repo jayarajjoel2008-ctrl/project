@@ -1,0 +1,102 @@
+.abtalks-proof-vault {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+.vault-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.vault-header h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.vault-header p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.vault-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-violet);
+  text-decoration: none;
+}
+
+.vault-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.vault-day-cell {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 64px;
+  transition: all 0.2s ease;
+}
+
+.vault-day-cell:hover {
+  border-color: var(--accent-violet);
+  transform: scale(1.03);
+}
+
+.vault-day-cell.completed {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.cell-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cell-day-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.cell-check-badge {
+  font-size: 0.65rem;
+  color: var(--success);
+}
+
+.cell-proof-icons {
+  display: flex;
+  gap: 6px;
+}
+
+.proof-dot {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.proof-dot.active {
+  color: var(--accent-violet);
+  opacity: 1;
+}

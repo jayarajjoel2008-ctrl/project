@@ -1,0 +1,109 @@
+.abtalks-submission-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+.form-section-title h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.form-section-title p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.form-error-banner {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #ef4444;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-title);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-group input {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--text-title);
+  font-size: 0.88rem;
+  transition: border-color 0.2s ease;
+  min-height: 46px;
+}
+
+.form-group input:focus {
+  border-color: var(--accent-violet);
+}
+
+.validation-hint {
+  font-size: 0.75rem;
+  margin-top: 2px;
+}
+
+.validation-hint.valid {
+  color: var(--success);
+}
+
+.validation-hint.invalid {
+  color: var(--danger);
+}
+
+.btn-submit-proof {
+  background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 14px;
+  border-radius: 30px;
+  box-shadow: 0 0 20px var(--accent-violet-glow);
+  transition: all 0.25s ease;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+}
+
+.btn-submit-proof:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(108, 92, 231, 0.6);
+}
+
+.spinner-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

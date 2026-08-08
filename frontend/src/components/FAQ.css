@@ -1,0 +1,51 @@
+.abtalks-faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.faq-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.faq-card:hover, .faq-card.open {
+  border-color: var(--border-hover);
+}
+
+.faq-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.faq-card-header h4 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-title);
+}
+
+.faq-arrow-icon {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.faq-card-body {
+  overflow: hidden;
+}
+
+.faq-card-body p {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.6;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-card);
+  margin-top: 12px;
+}

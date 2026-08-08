@@ -1,0 +1,141 @@
+.build-buddy-container.floating {
+  position: fixed;
+  bottom: 70px;
+  left: 16px;
+  right: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 900;
+}
+
+.build-buddy-container.embedded {
+  position: relative;
+  width: 100%;
+}
+
+.build-buddy-trigger-bar {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--accent-violet);
+  border-radius: 20px;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-title);
+  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.3);
+  min-height: 48px;
+}
+
+.trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bot-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--accent-violet);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.trigger-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.build-buddy-sheet {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 10px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bot-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bot-info h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.bot-status {
+  font-size: 0.72rem;
+  color: var(--success);
+}
+
+.sheet-response-box {
+  background: var(--bg-app);
+  border: 1px solid var(--border-card);
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  color: var(--text-title);
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.sheet-action-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.option-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.option-btn:hover {
+  border-color: var(--accent-violet);
+  color: var(--text-title);
+  background: rgba(108, 92, 231, 0.15);
+}
+
+@media (max-width: 480px) {
+  .sheet-action-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 769px) {
+  .build-buddy-container.floating {
+    bottom: 24px;
+    right: 24px;
+    left: auto;
+    width: 400px;
+  }
+}

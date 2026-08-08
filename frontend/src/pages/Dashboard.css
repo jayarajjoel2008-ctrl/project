@@ -1,0 +1,212 @@
+.abtalks-v2-dashboard {
+  background-color: var(--bg-app);
+  color: var(--text-title);
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-content-390 {
+  padding: 20px 16px 40px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dashboard-welcome-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.welcome-text h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.welcome-sub {
+  font-size: 0.85rem;
+  color: var(--text-body);
+}
+
+.demo-toggle-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  transition: all 0.2s ease;
+}
+
+.demo-toggle-btn:hover {
+  border-color: var(--accent-violet);
+  color: var(--text-title);
+}
+
+.abtalks-dashboard-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  transition: background-color 0.3s ease;
+}
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.progress-day-label {
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-title);
+}
+
+.progress-pct-val {
+  color: var(--accent-violet);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.progress-bar-track {
+  height: 8px;
+  background: var(--bg-card-hover);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
+  border-radius: 6px;
+  transition: width 0.8s ease;
+}
+
+.progress-footer-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.section-title-row h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-violet);
+  letter-spacing: 0.05em;
+}
+
+.proof-status-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.proof-status-card h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.proof-status-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.proof-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border-card);
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+.proof-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-title);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-badge.done { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.status-badge.pending { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+
+.story-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, var(--bg-card) 100%);
+  border-color: rgba(108, 92, 231, 0.3);
+}
+
+.story-summary-text h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-title);
+}
+
+.story-summary-text p {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  margin-top: 4px;
+}
+
+.btn-full-story-link {
+  align-self: flex-start;
+  background: var(--accent-violet);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.edge-case-box {
+  text-align: center;
+  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.edge-case-box h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.8rem;
+}

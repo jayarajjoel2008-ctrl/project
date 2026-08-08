@@ -1,0 +1,101 @@
+.abtalks-top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-card);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (min-width: 769px) {
+  .abtalks-top-nav {
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    margin-top: 24px;
+  }
+}
+
+.nav-wrapper {
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--text-title);
+}
+
+.logo-spark {
+  font-size: 1.15rem;
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.02em;
+}
+
+.logo-v2 {
+  color: var(--accent-violet);
+  background: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-profile-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  background: rgba(108, 92, 231, 0.12);
+  border: 1px solid var(--border-hover);
+  padding: 4px 10px;
+  border-radius: 16px;
+  color: var(--text-title);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.user-icon {
+  color: var(--accent-violet);
+  font-size: 0.95rem;
+}
+
+.theme-toggle-nav-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-title);
+  font-size: 0.95rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  min-height: 36px;
+}
+
+.theme-toggle-nav-btn:hover {
+  border-color: var(--accent-violet);
+}
+
+.icon-sun { color: #f59e0b; }
+.icon-moon { color: #8b5cf6; }

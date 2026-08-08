@@ -1,0 +1,127 @@
+.abtalks-achievements-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.achievements-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.achievements-header h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-title);
+}
+
+.achievements-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-violet);
+}
+
+.achievements-h-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.achievement-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.achievement-tile.unlocked {
+  border-color: var(--border-hover);
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08) 0%, var(--bg-card) 100%);
+}
+
+.achievement-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-violet);
+}
+
+.achievement-icon {
+  font-size: 1.8rem;
+}
+
+.achievement-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-title);
+  line-height: 1.2;
+}
+
+.achievement-status {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.achievement-detail-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-violet);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 320px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-icon {
+  font-size: 3rem;
+}
+
+.modal-content h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  color: var(--text-title);
+}
+
+.modal-content p {
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+.btn-modal-close {
+  background: var(--accent-violet);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 10px 24px;
+  border-radius: 20px;
+  min-height: 44px;
+  width: 100%;
+  margin-top: 8px;
+}
