@@ -8,9 +8,11 @@ export function getUserProgress() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const data = JSON.parse(raw);
+      if (data?.profile && data.profile.name !== 'Arvind') {
+        data.profile.name = 'Arvind';
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      }
       const evaluated = evaluateAchievements(data);
-      evaluated.profile.name = 'Arvind';
-      saveUserProgress(evaluated);
       if (!data.profile.startDate) {
         const defaultStart = new Date();
         defaultStart.setDate(defaultStart.getDate() - 11);
