@@ -8,13 +8,14 @@ export function getUserProgress() {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const data = JSON.parse(raw);
+      const evaluated = evaluateAchievements(data);
       if (!data.profile.startDate) {
         const defaultStart = new Date();
         defaultStart.setDate(defaultStart.getDate() - 11);
-        data.profile.startDate = defaultStart.toISOString();
-        saveUserProgress(data);
+        evaluated.profile.startDate = defaultStart.toISOString();
+        saveUserProgress(evaluated);
       }
-      return data;
+      return evaluated;
     }
   } catch (err) {
     console.error('Error loading progress from localStorage:', err);
@@ -23,22 +24,47 @@ export function getUserProgress() {
   const startDate = new Date();
   startDate.setDate(startDate.getDate() - 11);
 
-  const defaultData = {
+  const defaultData = evaluateAchievements({
     profile: { 
       ...INITIAL_USER_PROFILE, 
       startDate: startDate.toISOString() 
     },
     challenges: [...CHALLENGES],
     achievements: [...ACHIEVEMENTS]
-  };
+  });
 
   saveUserProgress(defaultData);
   return defaultData;
 }
 
+export function evaluateAchievements(data) {
+  if (!data || !data.profile || !data.achievements) return data;
+
+  const currentStreak = data.profile.currentStreak || 0;
+  const completedDaysCount = data.profile.completedDaysCount || 0;
+  const linkedinPostsCount = data.profile.linkedinPostsCount || 0;
+  const githubProofsCount = data.profile.githubProofsCount || 0;
+
+  data.achievements = data.achievements.map(ach => {
+    let shouldUnlock = ach.unlocked;
+
+    if (ach.id === 'streak-7') shouldUnlock = currentStreak >= 7;
+    if (ach.id === 'builds-10') shouldUnlock = completedDaysCount >= 10;
+    if (ach.id === 'posts-10') shouldUnlock = linkedinPostsCount >= 10;
+    if (ach.id === 'github-builder') shouldUnlock = githubProofsCount >= 40;
+    if (ach.id === 'milestone-30') shouldUnlock = completedDaysCount >= 30;
+    if (ach.id === 'mastery-60') shouldUnlock = completedDaysCount >= 60;
+
+    return { ...ach, unlocked: shouldUnlock };
+  });
+
+  return data;
+}
+
 export function saveUserProgress(data) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    const evaluated = evaluateAchievements(data);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(evaluated));
   } catch (err) {
     console.error('Error saving progress to localStorage:', err);
   }
