@@ -24,7 +24,24 @@ const AchievementCard = ({ achievements = [] }) => {
     }
   }, [achievements]);
 
-  const unlockedCount = achievementsList.filter(a => a.unlocked).length;
+  const DESIRED_ORDER = [
+    'milestone-15',
+    'milestone-30',
+    'milestone-45',
+    'mastery-60',
+    'streak-7',
+    'builds-10',
+    'posts-10',
+    'github-builder'
+  ];
+
+  const sortedAchievementsList = [...achievementsList].sort((a, b) => {
+    const posA = DESIRED_ORDER.indexOf(a.id) !== -1 ? DESIRED_ORDER.indexOf(a.id) : 99;
+    const posB = DESIRED_ORDER.indexOf(b.id) !== -1 ? DESIRED_ORDER.indexOf(b.id) : 99;
+    return posA - posB;
+  });
+
+  const unlockedCount = sortedAchievementsList.filter(a => a.unlocked).length;
 
   const triggerCelebration = (achievement) => {
     if (achievement.unlocked) {
@@ -219,7 +236,7 @@ const AchievementCard = ({ achievements = [] }) => {
 
       {/* 2-COLUMN GRID REFERENCE IMAGE DESIGN */}
       <div className="achievements-reference-grid">
-        {achievementsList.map((item) => {
+        {sortedAchievementsList.map((item) => {
           const progressVal = getProgressVal(item);
           const target = item.target || 15;
           const ratioPct = Math.min(100, Math.round((progressVal / target) * 100));
