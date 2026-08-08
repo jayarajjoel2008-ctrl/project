@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaLock, FaAward, FaTimes, FaShieldAlt, FaDownload } from 'react-icons/fa';
+import { FaLock, FaAward, FaTimes, FaShieldAlt, FaDownload, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import confetti from 'canvas-confetti';
 import { claimAchievement, getUserProgress } from '../utils/storage';
 import './AchievementCard.css';
@@ -10,6 +10,7 @@ const AchievementCard = ({ achievements = [] }) => {
   const [achievementsList, setAchievementsList] = useState(achievements);
   const [userName, setUserName] = useState('Arvind');
   const [userProfile, setUserProfile] = useState({});
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const current = getUserProgress();
@@ -24,24 +25,19 @@ const AchievementCard = ({ achievements = [] }) => {
     }
   }, [achievements]);
 
-  const DESIRED_ORDER = [
-    'milestone-15',
-    'milestone-30',
-    'milestone-45',
-    'mastery-60',
-    'streak-7',
-    'builds-10',
-    'posts-10',
-    'github-builder'
-  ];
-
+  // UNLOCKED BADGES FIRST AT THE FRONT/TOP, THEN LOCKED BADGES BELOW
   const sortedAchievementsList = [...achievementsList].sort((a, b) => {
-    const posA = DESIRED_ORDER.indexOf(a.id) !== -1 ? DESIRED_ORDER.indexOf(a.id) : 99;
-    const posB = DESIRED_ORDER.indexOf(b.id) !== -1 ? DESIRED_ORDER.indexOf(b.id) : 99;
-    return posA - posB;
+    if (a.unlocked && !b.unlocked) return -1;
+    if (!a.unlocked && b.unlocked) return 1;
+    return 0;
   });
 
   const unlockedCount = sortedAchievementsList.filter(a => a.unlocked).length;
+
+  // SHOW FIRST 2 BADGES BY DEFAULT, EXPAND ON TOGGLE
+  const visibleAchievements = isExpanded 
+    ? sortedAchievementsList 
+    : sortedAchievementsList.slice(0, 2);
 
   const triggerCelebration = (achievement) => {
     if (achievement.unlocked) {
@@ -74,7 +70,7 @@ const AchievementCard = ({ achievements = [] }) => {
   /**
    * Generates and downloads high-resolution PNG Badge Certificate in realtime
    */
-  const downloadBadgeImage = (achievement, e) => {
+  const downloadBadgeImage = async (achievement, e) => {
     if (e) e.stopPropagation();
 
     const canvas = document.createElement('canvas');
@@ -116,7 +112,7 @@ const AchievementCard = ({ achievements = [] }) => {
     ctx.textAlign = 'center';
     ctx.fillText('ABTALKS 2.0 • OFFICIAL BUILDER MILESTONE CERTIFICATE', 400, 95);
 
-    // 4. Central Circular Arc Ring (Reference Image Design)
+    // 4. Central Circular Arc Ring
     ctx.lineWidth = 14;
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
     ctx.beginPath();
@@ -130,7 +126,7 @@ const AchievementCard = ({ achievements = [] }) => {
     ctx.stroke();
 
     // Inner Circle Fill
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.8)';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
     ctx.beginPath();
     ctx.arc(400, 260, 85, 0, Math.PI * 2);
     ctx.fill();
@@ -139,7 +135,7 @@ const AchievementCard = ({ achievements = [] }) => {
     ctx.font = '95px sans-serif';
     ctx.fillText(achievement.icon || '🏆', 400, 295);
 
-    // 5. Points Pill Tag (Reference Image Style)
+    // 5. Points Pill Tag
     ctx.fillStyle = '#f59e0b';
     ctx.font = '900 24px "Syne", sans-serif';
     ctx.fillText(`${achievement.points || 250} PTS AWARDED`, 400, 405);
@@ -174,14 +170,13 @@ const AchievementCard = ({ achievements = [] }) => {
     ctx.font = '13px "JetBrains Mono", monospace';
     ctx.fillText(`${serialHash} • Issued: ${new Date().toLocaleDateString()}`, 400, 730);
 
-    // Convert Canvas to Blob for Native Gallery Share / Direct Device Storage Download
+    // Convert Canvas to Blob for Native Gallery Share / Direct File Download
     canvas.toBlob(async (blob) => {
       if (!blob) return;
 
       const filename = `ABTALKS-Badge-${achievement.title.replace(/\s+/g, '-')}.png`;
       const file = new File([blob], filename, { type: 'image/png' });
 
-      // Try Native Mobile Web Share API first (iOS / Android Photo Gallery)
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
           await navigator.share({
@@ -195,7 +190,6 @@ const AchievementCard = ({ achievements = [] }) => {
         }
       }
 
-      // Direct Anchor Download to device storage
       const imageURI = URL.createObjectURL(blob);
       const downloadLink = document.createElement('a');
       downloadLink.href = imageURI;
@@ -224,7 +218,7 @@ const AchievementCard = ({ achievements = [] }) => {
           <FaShieldAlt className="header-shield-icon" />
           <div>
             <h3>Achievements</h3>
-            <span className="header-subtext">Sequential Milestone Unlocks</span>
+            <span className="header-subtext">Unlocked Badges First</span>
           </div>
         </div>
 
@@ -234,9 +228,9 @@ const AchievementCard = ({ achievements = [] }) => {
         </div>
       </div>
 
-      {/* 2-COLUMN GRID REFERENCE IMAGE DESIGN */}
+      {/* 2-COLUMN GRID (SHOWING TOP 2 BADGES BY DEFAULT, UNLOCKED FIRST) */}
       <div className="achievements-reference-grid">
-        {sortedAchievementsList.map((item) => {
+        {visibleAchievements.map((item) => {
           const progressVal = getProgressVal(item);
           const target = item.target || 15;
           const ratioPct = Math.min(100, Math.round((progressVal / target) * 100));
@@ -249,10 +243,9 @@ const AchievementCard = ({ achievements = [] }) => {
               whileTap={{ scale: 0.97 }}
               onClick={() => setSelectedAchievement(item)}
             >
-              {/* CIRCULAR ARC RING FRAME (REFERENCE DESIGN) */}
+              {/* CIRCULAR ARC RING FRAME */}
               <div className="arc-ring-container">
                 <svg className="arc-ring-svg" viewBox="0 0 120 120">
-                  {/* Background Arc */}
                   <circle
                     cx="60"
                     cy="60"
@@ -260,7 +253,6 @@ const AchievementCard = ({ achievements = [] }) => {
                     className="arc-bg-circle"
                     strokeWidth="10"
                   />
-                  {/* Foreground Progress Arc */}
                   <circle
                     cx="60"
                     cy="60"
@@ -282,7 +274,7 @@ const AchievementCard = ({ achievements = [] }) => {
                 </div>
               </div>
 
-              {/* CARD METRICS & ACTION BUTTONS */}
+              {/* CARD METRICS */}
               <h4 className="ref-card-title">{item.title}</h4>
 
               <span className="ref-card-progress-ratio">
@@ -291,7 +283,7 @@ const AchievementCard = ({ achievements = [] }) => {
 
               <span className="ref-card-pts-pill">{item.points} PTS</span>
 
-              {/* BOTTOM CLAIM / DOWNLOAD BUTTON */}
+              {/* ACTION BUTTON */}
               {!item.unlocked ? (
                 <button className="btn-ref-action locked" disabled>
                   Claim
@@ -315,6 +307,20 @@ const AchievementCard = ({ achievements = [] }) => {
           );
         })}
       </div>
+
+      {/* EXPANDABLE TOGGLE BUTTON TO SAVE DASHBOARD SPACE */}
+      {sortedAchievementsList.length > 2 && (
+        <button 
+          className="btn-toggle-achievements-view"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? (
+            <><span>Show Less</span> <FaChevronUp /></>
+          ) : (
+            <><span>View All Achievements ({sortedAchievementsList.length})</span> <FaChevronDown /></>
+          )}
+        </button>
+      )}
 
       {/* DETAIL MODAL SHOWCASE */}
       <AnimatePresence>
