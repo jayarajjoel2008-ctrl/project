@@ -20,10 +20,17 @@ const ChallengeDay = ({ theme, toggleTheme }) => {
 
   const [data, setData] = useState(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [, setTick] = useState(0);
 
   useEffect(() => {
     const current = getUserProgress();
     setData(current);
+
+    const timer = setInterval(() => {
+      setTick(t => t + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
   }, [dayId]);
 
   if (!data) {
@@ -80,15 +87,15 @@ const ChallengeDay = ({ theme, toggleTheme }) => {
           <div className="challenge-progress-fill" style={{ width: `${progressPct}%` }} />
         </div>
 
-        {/* LOCKED DAY STATE DISPLAY WITH 12:00 AM COUNTDOWN */}
+        {/* LOCKED DAY STATE DISPLAY WITH 9:30 AM COUNTDOWN */}
         {!unlocked ? (
           <div className="locked-day-container-card">
             <div className="locked-header-badge">
               <FaLock /> LEVEL DAY {dayNum} IS LOCKED
             </div>
 
-            <h2>Day {dayNum} opens at 12:00 AM Midnight</h2>
-            <p>Challenges open one level per day at midnight local time to build true consistency.</p>
+            <h2>Day {dayNum} opens at 9:30 AM</h2>
+            <p>Challenges open one level per day at 9:30 AM local time to build true consistency.</p>
 
             <NextUnlockTimer nextDayNum={dayNum} />
 

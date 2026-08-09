@@ -23,7 +23,7 @@ const NextUnlockTimer = ({ nextDayNum }) => {
           <span className="timer-icon-badge"><FaLock /></span>
           <div>
             <h4>Day {nextTargetDay} Challenge Unlocks</h4>
-            <span className="timer-subtext">Automatically at 12:00 AM Midnight</span>
+            <span className="timer-subtext">Automatically at 9:30 AM Daily</span>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@ const NextUnlockTimer = ({ nextDayNum }) => {
 
       <div className="timer-footer">
         <FaClock className="clock-pulse-icon" />
-        <span>Live countdown to next 12:00 AM unlock</span>
+        <span>Live countdown to next 9:30 AM daily unlock</span>
       </div>
     </div>
   );

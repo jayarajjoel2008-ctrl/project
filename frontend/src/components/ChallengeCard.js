@@ -32,7 +32,7 @@ const ChallengeCard = ({ challenge }) => {
           </span>
         ) : (
           <span className="mission-locked-tag">
-            <FaLock /> UNLOCKS 12:00 AM
+            <FaLock /> UNLOCKS 9:30 AM
           </span>
         )}
       </div>
@@ -58,7 +58,7 @@ const ChallengeCard = ({ challenge }) => {
             <span>Unlocks in: <strong>{midnightTimer.formatted}</strong></span>
           </div>
           <p className="locked-sub-text">
-            Build statements & objectives unlock automatically at 12:00 AM Midnight.
+            Build statements & objectives unlock automatically at 9:30 AM daily.
           </p>
           <Link to={`/day/${dayNum}`} className="btn-locked-preview">
             <span>View Locked Countdown Details</span>

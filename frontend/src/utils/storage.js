@@ -1,4 +1,4 @@
-// ABTALKS 2.0 LocalStorage Persistence Layer with Midnight 12:00 AM Unlock System
+// ABTALKS 2.0 LocalStorage Persistence Layer with 9:30 AM Unlock System
 import { INITIAL_USER_PROFILE, CHALLENGES, ACHIEVEMENTS } from '../data/mockData';
 
 const STORAGE_KEY = 'ABTALKS_2_0_USER_PROGRESS';
@@ -113,33 +113,31 @@ export function getLastCompletedDay() {
 
 /**
  * Calculates max unlocked day based on start date and completed days.
- * Day N unlocks at 12:00 AM Midnight after Day N-1 is completed.
+ * Day N unlocks at 9:30 AM after Day N-1 is completed.
  */
 export function getMaxUnlockedDay() {
   const current = getUserProgress();
-  const start = new Date(current.profile?.startDate || Date.now());
-  const now = new Date();
-
-  // Midnight-based days elapsed since challenge start date
-  const diffTime = Math.max(0, now.getTime() - start.getTime());
-  const daysElapsedByTime = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
   const lastCompleted = getLastCompletedDay();
+  
+  const now = new Date();
+  const today930 = new Date(now);
+  today930.setHours(9, 30, 0, 0);
 
-  // If user completed up to lastCompleted (e.g. Day 11),
-  // Day 12 unlocks at 12:00 AM Midnight (daysElapsedByTime > lastCompleted).
-  if (daysElapsedByTime > lastCompleted) {
+  // If now is >= 9:30 AM today, today's 9:30 AM unlock has occurred!
+  // So Day (lastCompleted + 1) is unlocked.
+  // If now is < 9:30 AM today, today's 9:30 AM hasn't occurred yet, so Day (lastCompleted + 1) is locked.
+  if (now.getTime() >= today930.getTime()) {
     return Math.min(60, lastCompleted + 1);
   }
 
-  // Otherwise, Day 12 remains locked until 12:00 AM Midnight tonight!
+  // Before 9:30 AM today, max unlocked day is lastCompleted (or Day 1 minimum)
   return Math.max(1, lastCompleted);
 }
 
 /**
  * Checks if a specific day level is unlocked.
  * Level 1 is always unlocked.
- * Level N (N > 1) unlocks at 12:00 AM Midnight only after Level N-1 is completed.
+ * Level N (N > 1) unlocks at 9:30 AM only after Level N-1 is completed.
  */
 export function isDayUnlocked(dayNum) {
   const num = Number(dayNum);
@@ -156,14 +154,19 @@ export function isDayUnlocked(dayNum) {
 }
 
 /**
- * Returns live countdown until 12:00 AM midnight tonight
+ * Returns live countdown until 9:30 AM
  */
 export function getTimeUntilMidnight() {
   const now = new Date();
-  const midnight = new Date(now);
-  midnight.setHours(24, 0, 0, 0); // 12:00 AM midnight tonight
+  const nextUnlock = new Date(now);
+  nextUnlock.setHours(9, 30, 0, 0); // 9:30 AM unlock
 
-  const diffMs = Math.max(0, midnight.getTime() - now.getTime());
+  if (now.getTime() >= nextUnlock.getTime()) {
+    // If 9:30 AM today has already passed, target 9:30 AM tomorrow
+    nextUnlock.setDate(nextUnlock.getDate() + 1);
+  }
+
+  const diffMs = Math.max(0, nextUnlock.getTime() - now.getTime());
   const hours = Math.floor(diffMs / (1000 * 60 * 60));
   const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);

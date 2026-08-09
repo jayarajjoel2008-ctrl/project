@@ -110,7 +110,7 @@ const Dashboard = ({ theme, toggleTheme }) => {
         </div>
         <ChallengeCard challenge={todayChallenge} />
 
-        {/* LIVE COUNTDOWN TIMER FOR NEXT DAY 12:00 AM UNLOCK */}
+        {/* LIVE COUNTDOWN TIMER FOR NEXT DAY 9:30 AM UNLOCK */}
         <NextUnlockTimer nextDayNum={maxUnlockedDay + 1} />
 
         <div className="abtalks-dashboard-card proof-status-card">
